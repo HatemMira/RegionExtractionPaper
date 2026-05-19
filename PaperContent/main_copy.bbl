@@ -1,0 +1,154 @@
+\begin{thebibliography}{14}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Book
+\bibitem[{10.(2002)}]{10.5555/504206}
+, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{The boost graph library: user guide and reference
+  manual}.
+\newblock \bibinfo{publisher}{Addison-Wesley Longman Publishing Co., Inc.},
+  \bibinfo{address}{USA}.
+%Type = Article
+\bibitem[{Antolin et~al.(2023)Antolin, Buffa and Cirillo}]{ANTOLIN2023103448}
+\bibinfo{author}{Antolin, P.}, \bibinfo{author}{Buffa, A.},
+  \bibinfo{author}{Cirillo, E.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Region extraction in mesh intersection}.
+\newblock \bibinfo{journal}{Computer-Aided Design} \bibinfo{volume}{156},
+  \bibinfo{pages}{103448}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0010448522001816},
+  \DOIprefix\doi{https://doi.org/10.1016/j.cad.2022.103448}.
+%Type = Incollection
+\bibitem[{Bell and Hoberock(2012)}]{BELL2012359}
+\bibinfo{author}{Bell, N.}, \bibinfo{author}{Hoberock, J.},
+  \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Chapter 26 - thrust: A productivity-oriented library
+  for cuda}, in: \bibinfo{editor}{mei W.~Hwu, W.} (Ed.),
+  \bibinfo{booktitle}{GPU Computing Gems Jade Edition}.
+  \bibinfo{publisher}{Morgan Kaufmann}, \bibinfo{address}{Boston}. Applications
+  of GPU Computing Series, pp. \bibinfo{pages}{359--371}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/B9780123859631000265},
+  \DOIprefix\doi{https://doi.org/10.1016/B978-0-12-385963-1.00026-5}.
+%Type = Article
+\bibitem[{Cheng et~al.(2025)Cheng, Mao, Shen and Yan}]{electronics14153151}
+\bibinfo{author}{Cheng, P.}, \bibinfo{author}{Mao, L.F.},
+  \bibinfo{author}{Shen, W.H.}, \bibinfo{author}{Yan, Y.L.},
+  \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Electromigration failures in integrated circuits: A
+  review of physics-based models and analytical methods}.
+\newblock \bibinfo{journal}{Electronics} \bibinfo{volume}{14}.
+\newblock \URLprefix \url{https://www.mdpi.com/2079-9292/14/15/3151},
+  \DOIprefix\doi{10.3390/electronics14153151}.
+%Type = Book
+\bibitem[{De~Berg et~al.(2008)De~Berg, Van~Kreveld, Overmars and
+  Cheong}]{deberg2008computational}
+\bibinfo{author}{De~Berg, M.}, \bibinfo{author}{Van~Kreveld, M.},
+  \bibinfo{author}{Overmars, M.}, \bibinfo{author}{Cheong, O.},
+  \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{Computational Geometry: Algorithms and Applications}.
+\newblock \bibinfo{edition}{3rd} ed., \bibinfo{publisher}{Springer-Verlag
+  Berlin Heidelberg}.
+\newblock \DOIprefix\doi{10.1007/978-3-540-77974-2}.
+%Type = Article
+\bibitem[{{de Magalhães} et~al.(2020){de Magalhães}, Franklin and
+  Andrade}]{DEMAGALHAES2020102801}
+\bibinfo{author}{{de Magalhães}, S.V.G.}, \bibinfo{author}{Franklin, W.R.},
+  \bibinfo{author}{Andrade, M.V.A.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{An efficient and exact parallel algorithm for
+  intersecting large 3-d triangular meshes using arithmetic filters}.
+\newblock \bibinfo{journal}{Computer-Aided Design} \bibinfo{volume}{120},
+  \bibinfo{pages}{102801}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0010448519305330},
+  \DOIprefix\doi{https://doi.org/10.1016/j.cad.2019.102801}.
+%Type = Inbook
+\bibitem[{Diestel(2025)}]{Diestel2025}
+\bibinfo{author}{Diestel, R.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Planar Graphs}. \bibinfo{publisher}{Springer Berlin
+  Heidelberg}, \bibinfo{address}{Berlin, Heidelberg}.
+\newblock pp. \bibinfo{pages}{93--122}.
+\newblock \URLprefix \url{https://doi.org/10.1007/978-3-662-70107-2\_4},
+  \DOIprefix\doi{10.1007/978-3-662-70107-2\_4}.
+%Type = Inproceedings
+\bibitem[{Fabri and Pion(2009)}]{10.1145/1653771.1653865}
+\bibinfo{author}{Fabri, A.}, \bibinfo{author}{Pion, S.}, \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Cgal: the computational geometry algorithms library},
+  in: \bibinfo{booktitle}{Proceedings of the 17th ACM SIGSPATIAL International
+  Conference on Advances in Geographic Information Systems},
+  \bibinfo{publisher}{Association for Computing Machinery},
+  \bibinfo{address}{New York, NY, USA}. p. \bibinfo{pages}{538–539}.
+\newblock \URLprefix \url{https://doi.org/10.1145/1653771.1653865},
+  \DOIprefix\doi{10.1145/1653771.1653865}.
+%Type = Book
+\bibitem[{JaJ{\'a}(1992)}]{jaja1992}
+\bibinfo{author}{JaJ{\'a}, J.}, \bibinfo{year}{1992}.
+\newblock \bibinfo{title}{An Introduction to Parallel Algorithms}.
+\newblock \bibinfo{publisher}{Addison-Wesley}.
+%Type = Article
+\bibitem[{Jiang and Bunke(1993)}]{JIANG1993553}
+\bibinfo{author}{Jiang, X.}, \bibinfo{author}{Bunke, H.}, \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{An optimal algorithm for extracting the regions of a
+  plane graph}.
+\newblock \bibinfo{journal}{Pattern Recognition Letters} \bibinfo{volume}{14},
+  \bibinfo{pages}{553--558}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/016786559390104L},
+  \DOIprefix\doi{https://doi.org/10.1016/0167-8655(93)90104-L}.
+%Type = Inbook
+\bibitem[{Lintermann(2021)}]{Lintermann2021}
+\bibinfo{author}{Lintermann, A.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Computational Meshing for CFD Simulations}.
+  \bibinfo{publisher}{Springer Singapore}, \bibinfo{address}{Singapore}.
+\newblock pp. \bibinfo{pages}{85--115}.
+\newblock \URLprefix \url{https://doi.org/10.1007/978-981-15-6716-2\_6},
+  \DOIprefix\doi{10.1007/978-981-15-6716-2\_6}.
+%Type = Article
+\bibitem[{Lintermann et~al.(2014)Lintermann, Schlimpert, Grimmen, Günther,
+  Meinke and Schröder}]{LINTERMANN2014131}
+\bibinfo{author}{Lintermann, A.}, \bibinfo{author}{Schlimpert, S.},
+  \bibinfo{author}{Grimmen, J.}, \bibinfo{author}{Günther, C.},
+  \bibinfo{author}{Meinke, M.}, \bibinfo{author}{Schröder, W.},
+  \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Massively parallel grid generation on hpc systems}.
+\newblock \bibinfo{journal}{Computer Methods in Applied Mechanics and
+  Engineering} \bibinfo{volume}{277}, \bibinfo{pages}{131--153}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0045782514001340},
+  \DOIprefix\doi{https://doi.org/10.1016/j.cma.2014.04.009}.
+%Type = Inproceedings
+\bibitem[{Magalh\~{a}es et~al.(2017)Magalh\~{a}es, Franklin and
+  Andrade}]{10.1145/3139958.3140001}
+\bibinfo{author}{Magalh\~{a}es, S.V.G.}, \bibinfo{author}{Franklin, W.R.},
+  \bibinfo{author}{Andrade, M.V.A.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Fast exact parallel 3d mesh intersection algorithm
+  using only orientation predicates}, in: \bibinfo{booktitle}{Proceedings of
+  the 25th ACM SIGSPATIAL International Conference on Advances in Geographic
+  Information Systems}, \bibinfo{publisher}{Association for Computing
+  Machinery}, \bibinfo{address}{New York, NY, USA}.
+\newblock \URLprefix \url{https://doi.org/10.1145/3139958.3140001},
+  \DOIprefix\doi{10.1145/3139958.3140001}.
+%Type = Inproceedings
+\bibitem[{Nickolls et~al.(2008)Nickolls, Buck, Garland and
+  Skadron}]{10.1145/1401132.1401152}
+\bibinfo{author}{Nickolls, J.}, \bibinfo{author}{Buck, I.},
+  \bibinfo{author}{Garland, M.}, \bibinfo{author}{Skadron, K.},
+  \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{Scalable parallel programming with cuda}, in:
+  \bibinfo{booktitle}{ACM SIGGRAPH 2008 Classes},
+  \bibinfo{publisher}{Association for Computing Machinery},
+  \bibinfo{address}{New York, NY, USA}.
+\newblock \URLprefix \url{https://doi.org/10.1145/1401132.1401152},
+  \DOIprefix\doi{10.1145/1401132.1401152}.
+
+\end{thebibliography}
