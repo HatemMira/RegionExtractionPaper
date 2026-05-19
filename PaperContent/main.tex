@@ -17,28 +17,28 @@
 \usepackage{subcaption}
 % \usepackage{natbib}
 \usepackage[table]{xcolor}
+\usepackage{url}
 
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\pgfplotsset{compat=1.18}
 
 \begin{document}
 
 \title{GPU-accelerated Plane Graph Region Extraction Algorithms}
 
-% \author{
-% \IEEEauthorblockN{}
-% \IEEEauthorblockA{Department of Computer Science\\
-% The American University in Cairo\\
-% Email: author@example.com}
-% }
+\author{
+\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{Department of Computer Science\\
+The American University in Cairo\\
+Email: author@example.com}
+}
 
 \maketitle
 
-% \begin{abstract}
-% In this paper, we present a GPU-accelerated implementation for the extraction of connected regions in plane graphs using the CUDA programming model. There are two optimal algorithms with the same complexity to solve this problem for extracting all regions of a plane graph \boldmath\(G(V, E)\)\unboldmath, with a time complexity of \boldmath $O(m \log m)$ \unboldmath, where \boldmath \(m\) \unboldmath denotes the number of edges in \boldmath\(G\)\unboldmath. The first was proposed by Mark de Berg, Marc van Kreveld, Mark Overmars, Otfried Schwarzkopf, and the second one by Jiang and Bunke. Our work introduces a high-performance parallel implementation of this optimal region extraction algorithm, leveraging NVIDIA GPUs and CUDA to exploit the computational capabilities of modern parallel hardware. While there are different libraries for calculating regions for plane graphs, such as the Boost Graph Library (BGL) and the Computational Geometry Algorithms Library (CGAL), which operate on the CPU, no GPU-based implementation currently exists. Experimental results demonstrate that our CUDA-based GPU implementation significantly outperforms the different CPU implementations, achieving speedup of up to $33\times$ in computation time.
-
-% \end{abstract}
-
 \begin{abstract}
-This paper presents two high-performance GPU-accelerated algorithms for the extraction of connected regions in plane graphs using the CUDA programming model. While sequential algorithms for extracting all regions of a plane graph \boldmath$G(V, E)$\unboldmath achieve an optimal time complexity of \boldmath$O(m \log m)$\unboldmath, they remain constrained by CPU throughput when processing large-scale datasets, and although established libraries such as the Boost Graph Library and the Computational Geometry Algorithms Library provide robust CPU-based solutions, a dedicated GPU implementation currently does not exist in the literature. We introduce a parallel framework that leverages NVIDIA GPUs to exploit the massive parallelism inherent in edge sorting and face traversal.  Experimental results demonstrate that our CUDA-based approach significantly outperforms state-of-the-art CPU implementations, achieving a speedup of up to \boldmath$33\times$\unboldmath in total computation time.
+This paper presents two high-performance GPU-accelerated algorithms for the extraction of connected regions in plane graphs using the CUDA programming model. While sequential algorithms for extracting all regions of a plane graph $\bm{G(V, E)}$ achieve an optimal time complexity of $\bm{O(m \log m)}$, they remain constrained by CPU throughput when processing large-scale datasets, and although established libraries such as the Boost Graph Library and the Computational Geometry Algorithms Library provide robust CPU-based solutions, a dedicated GPU implementation currently does not exist in the literature. We introduce a parallel framework that leverages NVIDIA GPUs to exploit the massive parallelism inherent in edge sorting and face traversal.  Experimental results demonstrate that our CUDA-based approach significantly outperforms state-of-the-art CPU implementations, achieving a speedup of up to $\bm{33\times}$ in total computation time.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -47,27 +47,21 @@ Plane Graph, Region Extraction,  Computational Geometry, Meshing, GPU, CUDA, Par
 
 \section{Introduction}
 
-A plane graph is a graph embedded in the two-dimensional plane such that no two edges intersect except at their common endpoints. In this representation, referred to as an embedding, each vertex is mapped to a distinct point in the plane, and each edge connects two endpoints without any crossings. The process of region (or face) extraction in plane graphs is fundamental in numerous domains, including computational geometry, computer graphics, geographic information systems (GIS), Very-Large-Scale Integration (VLSI) circuit design, and robotics. It plays a critical role in tasks such as surface reconstruction, mesh generation, polygon decomposition, object recognition, and modeling flow in planar infrastructures~\cite{ANTOLIN2023103448,DEMAGALHAES2020102801,10.1145/3139958.3140001}.
+A plane graph is a specific topological embedding of a planar graph in a two-dimensional Euclidean space, where vertices are mapped to distinct coordinates and edges are mapped to continuous arcs that intersect exclusively at their common endpoints. Identifying and extracting the discrete regions (or faces) bounded by these edges is a fundamental operation across an extensive array of domains, including geographic information systems (GIS), computer graphics, VLSI layout verification, mesh generation, and automated robotics navigation~\cite{ANTOLIN2023103448,DEMAGALHAES2020102801,10.1145/3139958.3140001}. In modern computational engineering, simulations involving finite element analysis or fluid dynamics frequently manipulate structural meshes containing tens of millions of distinct elements~\cite{Lintermann2021,LINTERMANN2014131,electronics14153151}. At this scale, serial or poorly parallelized geometric extraction routines quickly become severe computational bottlenecks.
 
-In scientific and engineering simulations, such as computational fluid dynamics, finite element analysis, large-scale GIS, and VLSI applications~\cite{Lintermann2021,LINTERMANN2014131,electronics14153151}, underlying mesh structures often consist of millions or even billions of elements. This scale demands the use of efficient and scalable algorithms, ideally suited for parallel processing on modern hardware.
+% The first optimal sequential algorithm for region extraction that will bed discussed in the paper was proposed Mark de Berg et al~\cite{deberg2008computational} and it is based on Doubly Connected Edge List (DCEL) data structure and the second was proposed by Jiang and Bunke~\cite{JIANG1993553} and is based in Wedges data structure. To differentiate between them the algorithm will be called DCEL-based and Wedge-based algorithms, respectively. Both of them are achieving a time complexity of \(O(m \log m)\) and space complexity of \(O(m)\), where \(m\) is the number of edges in the graph \(G(V, E)\). As shown by Euler's formula for planar graphs, a simple plane graph with \(n \geq 3\) vertices has at most \(m \leq 3n - 6\) edges~\cite{Diestel2025}.
 
-% The first optimal sequential algorithm for region extraction that will bed discussed in the paper was proposed Mark de Berg et al~\cite{deberg2008computational} and it is based on Doubly Connected Edge List (DCEL) data structure and the seconed was proposed by Jiang and Bunke~\cite{JIANG1993553} and is based in Wedges data structure. To differentiate between them the algorithm will be called DCEL-based and Wedge-based algorithms repectively. Both of them are achieving a time complexity of \(O(m \log m)\) and space complexity of \(O(m)\), where \(m\) is the number of edges in the graph \(G(V, E)\). As shown by Euler's formula for planar graphs, a simple plane graph with \(n \geq 3\) vertices has at most \(m \leq 3n - 6\) edges~\cite{Diestel2025}.
-
-Two primary optimal sequential algorithms for region extraction are discussed in this paper. The first one~\cite{JIANG1993553} is based on wedges, while the second one~\cite{deberg2008computational} is based on half-edges (HEs), and it is implemented in many computational geometry libraries such as CGAL and BGL. For clarity, these approaches are referred to as the Wedge-based and HE-based algorithms, respectively. Both methods achieve a time complexity of $O(m \log m)$ and a space complexity of $O(m)$, where $m$ denotes the number of edges in the graph $G(V, E)$. As shown by Euler's formula for planar graphs, a simple plane graph with $n \geq 3$ vertices has at most $m \leq 3n - 6$ edges \cite{Diestel2025}, confirming that such graphs are inherently sparse.
+Two primary optimal sequential algorithms for region extraction are discussed in this paper. The first one~\cite{JIANG1993553} is based on wedges, while the second one~\cite{deberg2008computational} is based on half-edges (HEs) and is implemented in many computational geometry libraries, such as CGAL and BGL. For clarity, these approaches are referred to as the Wedge-based and HE-based algorithms, respectively. Both methods achieve a time complexity of $O(m \log m)$ and a space complexity of $O(m)$, where $m$ denotes the number of edges in the graph $G(V, E)$. As shown by Euler's formula for planar graphs, a simple plane graph with $n \geq 3$ vertices has at most $m \leq 3n - 6$ edges \cite{Diestel2025}, confirming that such graphs are inherently sparse.
 
 Although theoretically optimal, the original sequential algorithms can be computationally impractical when applied to large-scale graphs commonly encountered in modern scientific and engineering applications, and the emergence of massively parallel platforms, such as GPUs with NVIDIA's CUDA~\cite{10.1145/1401132.1401152} framework, creates new opportunities for accelerating algorithmic graph operations.
 
 % In this paper, we propose a CUDA-based GPU implementation of the optimal region extraction algorithm for plane graphs, emphasizing the design of data structures and execution strategies optimized for GPU architectures. The GPU implementation is evaluated against different reference CPU versions based on the Computational Geometry Algorithms Library (CGAL)~\cite{10.1145/1653771.1653865}, the Boost Graph Library (BGL)~\cite{10.5555/504206}, and our own implementation of the algorithms, using a suite of synthetic 2D mesh datasets that simulate various planar graph structures. Experimental results confirm that the GPU implementation maintains correctness while achieving a substantial speedup compared to the CPU baseline. These findings highlight the effectiveness of parallelization for graph-based geometric processing tasks and demonstrate the practicality of the approach for large-scale applications.
 
-In this paper, we propose CUDA-based GPU implementations for both the Wedge-based and HE-based region extraction algorithms, emphasizing the design of data structures and execution strategies optimized for massively parallel architectures. Our implementations are evaluated against established CPU-based frameworks, including the Computational Geometry Algorithms Library (CGAL) \cite{10.1145/1653771.1653865} and the Boost Graph Library (BGL) \cite{10.5555/504206}, as well as our own optimized sequential versions. We utilize a suite of synthetic 2D mesh datasets to simulate the large-scale planar graph structures encountered in modern engineering. Experimental results demonstrate that our GPU implementations maintain absolute correctness while achieving substantial speedups—up to 33$\times$ in our tests—compared to CPU baselines. These findings highlight the effectiveness of parallelization for geometric graph processing and demonstrate the practicality of our approach for large-scale applications.
+This paper introduces comprehensive GPU-accelerated parallel adaptations of both the Wedge-based and the Half-Edge-based region extraction algorithms. We evaluate our parallel CUDA C++ implementations against established CPU geometric frameworks, including CGAL~\cite{10.1145/1653771.1653865} and BGL~\cite{10.5555/504206}, as well as heavily optimized sequential baselines. Our parallel designs adapt a parallel pointer-jumping (path doubling) technique and leverage the parallel primitives of the Thrust library~\cite{BELL2012359}. We utilize a suite of synthetic 2D mesh datasets to simulate the large-scale planar graph structures encountered in modern engineering. Experimental results demonstrate that our GPU implementations maintain absolute correctness while achieving substantial speedups—up to 33$\times$ in our tests—compared to CPU baselines. These findings highlight the effectiveness of parallelization for geometric graph processing and demonstrate the practicality of our approach for large-scale applications.
 
-The remainder of this paper is organized as follows:
-\begin{itemize}
-    \item Section \textsc{ii} provides an introduction to the basic definitions and notations of the problem we discuss.
-    \item Section \textsc{iii} describes the two original algorithms of region extraction.
-    \item Section \textsc{iv} introduces the main contribution of this paper, which is providing a parallel adaptation and a GPU implementation of the two original algorithms.
-    \item Section \textsc{v} provides the experimental results of the GPU implementation against the different reference CPU implementations.
-\end{itemize}
+The remainder of this work is structured as follows. Section~\textsc{ii} formalizes the necessary mathematical definitions and structural notations. Section~\textsc{iii} outlines the operational logic of the baseline sequential algorithms. Section~\textsc{iv} provides a deep overview of our proposed parallelization methodologies and CUDA implementation strategies. Section~\textsc{v} presents the experimental results, performance characteristics, and workload profiling, and Section~\textsc{vi} concludes the paper.
+
+
 
 
 \section{Definitions and Notations}
@@ -80,7 +74,7 @@ It is crucial to distinguish the graph's inherent planarity from its visual repr
 \begin{figure}[h]
 \centering
 % ----------- K5 -----------
-\begin{subfigure}{0.45\linewidth}
+\begin{subfigure}[t]{0.45\linewidth}
 \centering
 \begin{tikzpicture}[scale=1.2, every node/.style={circle, fill=black, inner sep=1.5pt}]
     \foreach \i in {1,...,5}
@@ -97,7 +91,7 @@ It is crucial to distinguish the graph's inherent planarity from its visual repr
 \end{subfigure}
 \hfill
 % ----------- K3,3 -----------
-\begin{subfigure}{0.45\linewidth}
+\begin{subfigure}[t]{0.45\linewidth}
 \centering
 \begin{tikzpicture}[scale=1.2, every node/.style={circle, fill=black, inner sep=1.5pt}]
     \foreach \i in {1,2,3} {
@@ -238,7 +232,7 @@ Each region in a plane graph can be represented in any one of the three equivale
 For example, region \( R_1 \) from Fig.~\ref{fig:plane_graph} can be expressed as:
 \begin{align*}
 & (v_1, v_2, v_4, v_5, v_6), \\
-& ((v_1, v_2), (v_2, v_4), (v_4, v_5), (v_5, v_6), (v_6, v_1)), or \\
+& ((v_1, v_2), (v_2, v_4), (v_4, v_5), (v_5, v_6), (v_6, v_1)), \text{ or } \\
 & ((v_1, v_2, v_4), (v_2, v_4, v_5), (v_4, v_5, v_6), (v_5, v_6, v_1), (v_6, v_1, v_2))
 \end{align*}
 The three representations are equivalent and can be easily transformed into each other. Thus, either of them can be chosen for convenience.
@@ -278,7 +272,7 @@ The three representations are equivalent and can be easily transformed into each
 \end{figure}
 
 \section{Optimal Sequential Algorithms}
-In this section, we illustrate the steps of the optimal sequential algorithms for region extraction (the Wedge-based and the HE-based), which have run-time complexity \( O (m \log m) \) and space complexity \( O (m) \). We will also shed light on the time complexity of each step because it will be the guide to the design of the GPU-accelerated algorithms proposed in the methodology. Both algorithms takes as input an undirected connected graph \(G(V, E)\) with a list of vertices \(V\), each vertiex \(v_i\) with coordinates \((x_i, y_i)\), and a list of undirected edges \(E\). 
+In this section, we illustrate the steps of the optimal sequential algorithms for region extraction (the Wedge-based and the HE-based), which have run-time complexity \( O (m \log m) \) and space complexity \( O (m) \). We will also shed light on the time complexity of each step because it will be the guide to the design of the GPU-accelerated algorithms proposed in the methodology. Both algorithms take as input an undirected connected graph \(G(V, E)\) with a list of vertices \(V\), each vertex \(v_i\) with coordinates \((x_i, y_i)\), and a list of undirected edges \(E\). 
 
 
 \subsection{The Wedge-based Algorithm}
@@ -351,7 +345,7 @@ The region grouping phase assembles wedges into closed polygonal regions, identi
     \end{enumerate}
     \item \textbf{Completion:} If there is no unvisited wedge, then the phase is completed; otherwise, go back to step~\ref{phase2_start}.
 \end{enumerate}
-The loops in steps 3 and 4 have \( m \) iterations and the binary search step has complexity \( O(\log m) \), which makes (besides the sorting step) the total time complexity of the second phase is \( O(m\log m) \).
+Because every wedge is visited exactly once during the tracing loops, the cumulative cost of the binary searches across all $2m$ wedges is mathematically bounded at $O(m \log m)$. Consequently, when combining the sorting stage with the traversal loop, Phase 2 maintains an overall time complexity of $O(m \log m)$, matching the total asymptotic bounds of the complete extraction algorithm.
 
 
 \subsection{The HE-based Algorithm}
@@ -363,7 +357,7 @@ The first phase builds the topological relationships required for the half-edges
 \begin{enumerate}
     \item \textbf{Half-Edge Creation:} Each undirected edge $(v_i, v_j)$ is split into two directed \textit{half-edges}, $e_{i,j}$ (originating at $v_i$) and $e_{j,i}$ (originating at $v_j$). Each half-edge is assigned to its twin edge immediately. Time complexity is $O(m)$.
     \item \textbf{Angle Calculation:} For each directed edge \( \langle v_i, v_j\rangle \), the angle \( \theta\) is calculated in a similar way to the step in the Wedge-based algorithm. The time complexity of calculating angles for all edges is \( O(m) \).
-    \item \textbf{Angular Sorting:} For every vertex $v$, all half-edges originating at $v$ are sorted by their polar angle ascending. This step is identical to the Wedge-based algorithm also and is required to determine the relative order of edges around a vertex. Time complexity is $O(m \log m)$.
+    \item \textbf{Angular Sorting:} For every vertex $v$, all half-edges originating at $v$ are sorted by their polar angle ascending. This step is identical to the Wedge-based algorithm, and is required to determine the relative order of edges around a vertex. Time complexity is $O(m \log m)$.
     \item \textbf{Next Edge Linking:} For each half-edge $e_{i,j}$ (which terminates at $v_j$), its next edge must be a half-edge originating at $v_j$. Specifically, the immediate clockwise successor of its twin edge around the vertex $v_j$ (the previous half-edge of its twin edge in the sorted half-edges around $v_j$). This ensures that the traversal follows the boundary of the incident face. The time complexity of linking one edge is $O(1)$ and, hence, for all edges is $O(m)$. A visual example of this step is shown in Fig.~\ref{fig:dcel_pointers}, where the next half-edge of $e_{3,1}$ is calculated as $e_{1,6}$ because it is the half-edge that has the largest angle less than its twin edge $e_{1,3}$.
 \end{enumerate}
 
@@ -413,7 +407,7 @@ Once the half-edges with their next and twin edges are calculated, extracting re
     \item \textbf{Completion:} The process repeats until all half-edges have been visited. 
 \end{enumerate}
 
-Since each half-edge is visited exactly once during the traversal, the time complexity of Phase 2 is $O(m)$. Consequently, the overall complexity of the HE-based algorithm is dominated by the sorting in Phase 1, resulting in $O(m \log m)$. Although the HE-based algorithm has the same time complexity of the Wedge-based algorithm, $O(m \log m)$, it doesn't have the binary search step and it is expected to have a better run-time performance.
+Since each half-edge is visited exactly once during the traversal, the time complexity of Phase 2 is $O(m)$. Consequently, the overall complexity of the HE-based algorithm is dominated by the sorting in Phase 1, resulting in $O(m \log m)$. Although the HE-based algorithm has the same time complexity as the Wedge-based algorithm, $O(m \log m)$, it doesn't have the binary search step, and it is expected to have a better run-time performance.
 
 
 \section{Methodology}
@@ -423,8 +417,7 @@ In this section, we will illustrate the GPU-accelerated algorithm for both the w
 The CUDA-based parallel implementation of the wedge-based algorithm adheres to the two-phase structure originally introduced by Jiang and Bunke~\cite{JIANG1993553}, with necessary adaptations to enable parallel execution. These adaptations include the incorporation of CUDA-specific libraries and the application of parallelization strategies tailored for GPU architectures. The implementation of each phase is detailed as follows:
 
 \subsubsection{Phase 1: Wedge Construction}\hfill\\
-The first phase identifies all wedges in the input plane graph. Despite this phase being computationally intensive, it is highly parallelizable and hence well-suited for GPU execution with the use of the thrust~\cite{BELL2012359} library in CUDA. The Thrust API provides an easy-to-use high-level interface for parallel programming on CUDA-enabled GPUs. It offers a wide range of
-functionalities such as scan, sort, reductions, and data transformations. 
+The first phase identifies all wedges in the input plane graph. Despite this phase being computationally intensive, it is highly parallelizable and hence well-suited for GPU execution with the use of the thrust~\cite{BELL2012359} library in CUDA. The Thrust API provides an easy-to-use high-level interface for parallel programming on CUDA-enabled GPUs. It offers a wide range of functionalities such as scan, sort, reductions, and data transformations. 
 The computation proceeds as follows:
 
 \begin{itemize}
@@ -454,9 +447,9 @@ The region grouping phase assembles wedges into closed polygonal regions, identi
 
     \item \textbf{Construct Regions:} Following the convergence of region leaders, a kernel is launched to linearize the constituent wedges of each independent region. In this phase, parallelism is exploited at the region level rather than the wedge level; each thread is assigned to a unique region leader and executes a sequential traversal along the original contiguous pointers, starting from the leader, until the boundary cycle is fully reconstituted. 
 
-    While the traversal within each region is sequential, this design minimizes resource utilization by scaling the active thread count to the number of discrete regions ($|R|$) rather than the total number of wedges ($2m$). This reduction in thread density mitigates thread management overhead, prevents GPU resource over-subscription, and maximizes the execution context resources available per active thread. 
+    While the traversal within each region is sequential, this design minimizes resource utilization by scaling the active thread count to the number of discrete regions ($|R|$) rather than the total number of wedges ($2m$). This reduction in thread density mitigates thread management overhead, prevents GPU resource over-subscription, and maximizes the execution context resources available per active thread.
     
-    Although an alternative parallel formulation using pointer jumping would yield a logarithmic time complexity of $\mathcal{O}(\log c)$ for a cycle of length $c$, it requires maintaining a thread allocation scaled to all $2m$ wedges. Consequently, the linear traversal over $|R|$ threads proves more efficient in practice due to reduced kernel launch overhead and improved memory access patterns, even though its execution time remains bounded by the maximum cycle length, $\mathcal{O}(\max c)$.
+    Although using pointer jumping would yield a logarithmic time complexity of $O(\log c)$ for a cycle of length $c$, it requires maintaining a thread allocation scaled to all $2m$ wedges. Consequently, the linear traversal over $|R|$ threads proves more efficient in practice due to reduced kernel launch overhead, even though its execution time remains bounded by the maximum cycle length, $O(\max c)$.
     
     \item \textbf{Copying Regions:} Copy the regions data back to the CPU.
 \end{enumerate}
@@ -568,13 +561,13 @@ The region grouping phase assembles wedges into closed polygonal regions, identi
 %     \label{fig:ownership_marking}
 % \end{figure}
 
-In the second phase, the maximum number of iterations executed by any GPU thread during the sequential steps corresponds to the maximum number of wedges in a region of the graph. While this upper bound is \(O(n)\), it is typically much smaller in practice.
+In the second phase, the maximum number of iterations executed by any GPU thread during the sequential steps corresponds to the maximum number of wedges in a region of the graph. While this upper bound is \(O(m)\), it is typically much smaller in practice.
 
 
 \subsection{The HE-based Algorithm}
 
 \subsubsection{Phase 1: Half-Edges Construction}\hfill\\
-All the steps in this phase are fully parallelizable, as the \textbf{Half-Edge Creation} and the \textbf{Angle Calculation} steps are parallelized through launching kernels for each half-edge, and the \textbf{Angular Sorting} step is done using the thrust library, and the \textbf{Next Edge Linking} step is parallelized through kernel also for each helf-edge. At the end of this phase, the next edge for each half-edge is calculated to be used in the next phase.
+All the steps in this phase are fully parallelizable, as the \textbf{Half-Edge Creation} and the \textbf{Angle Calculation} steps are parallelized through launching kernels for each half-edge, and the \textbf{Angular Sorting} step is done using the thrust library, and the \textbf{Next Edge Linking} step is parallelized through kernels for each half-edge. At the end of this phase, the next edge for each half-edge is calculated to be used in the next phase.
 
 \subsubsection{Phase 2: Region Traversal}\hfill\\
 All the steps in this phase are directly parallelized, starting from marking all half-edges as unvisited, then calculating the leader half-edges using the same pointer jumping approach used in the Wedge-based algorithm, and at the end constructing the regions and sending the data back to the CPU.
@@ -776,9 +769,10 @@ Figures~\ref{fig:graph_pattern_1}, \ref{fig:graph_pattern_2}, and \ref{fig:graph
 
 \begin{table*}[t]
 \centering
-\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+% \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+\begin{tabularx}{\textwidth}{|C|C|C|C|C|C|}
 \hline
-\textbf{Graph ID} & \boldmath\textbf{\(l\)}\unboldmath & \textbf{Pattern Type} & \textbf{Number of Vertices \boldmath\((n)\) \unboldmath} & \textbf{Number of Edges \boldmath\((m)\) \unboldmath} & \textbf{Number of Regions} \\
+\textbf{Graph ID} & \boldmath\textbf{Pattern Grid Side Length \boldmath\((l)\) \unboldmath}\unboldmath & \textbf{Pattern Type} & \textbf{Number of Vertices \boldmath\((n)\) \unboldmath} & \textbf{Number of Edges \boldmath\((m)\) \unboldmath} & \textbf{Number of Regions} \\
 \hline
 \(g_1\) & 1,001 & \(P_1\) & 1,002,001 & 3,002,000 & 2,000,001 \\
 \hline
@@ -816,9 +810,9 @@ Figures~\ref{fig:graph_pattern_1}, \ref{fig:graph_pattern_2}, and \ref{fig:graph
 
 For the graph instances listed in Table~\ref{tab:graph_data}, region extraction was performed using the four CPU-based approaches described above: BGL, CGAL libraries, and our own C++ implementations of the Wedge-based and the HE-based algorithms, and 2 GPU-based approaches, the Wedge-based and the HE-based. Correctness was verified across all graph instances, and the speedup of each implementation was computed as the ratio of the execution time to the HE-based GPU execution time, as the fastest run time results were for the HE-based algorithm either on the CPU or on the GPU for most of the test cases. It is noted that the GPU-accelerated HE-based algorithm is slightly faster than the GPU-accelerated Wedge-based algorithm. 
 
-As mentioned previously, for the BGL implementation, timing measurements were limited to the smallest graph group ($l = 1001$), due to the overhead associated with planarity testing. The detailed results are presented in Table~\ref{tab:results}. Among the CPU approaches, our HE-based C++ implementation achieved better performance than the libraries, as it executes only the core algorithm without performing planarity checks, and better than the Wedge-based implementation, which was expected because it depends on the twin edges to find the next edges, and it doesn't need to do binary search. Comparing the two GPU-accelerated algorithms shows that the GPU-HE implementation slightly outperformed the GPU-Wedge variant, with the latter typically being up to 13\% slower across test cases. Consequently, the primary comparison focuses on this CPU implementation and the CUDA-based GPU implementation for the HE-based algorithm.
+As mentioned previously, for the BGL implementation, timing measurements were limited to the smallest graph group ($l = 1001$), due to the overhead associated with planarity testing. The detailed results are presented in Table~\ref{tab:results}. Among the CPU approaches, our HE-based C++ implementation achieved better performance than the libraries, as it executes only the core algorithm without performing planarity checks, and better than the Wedge-based implementation, which was expected because it depends on the twin edges to find the next edges, and it doesn't need to do binary search. Comparing the two parallel approaches shows that the Half-Edge implementation consistently outperforms the Wedge-based framework. This advantage arises because the Half-Edge data structure tracks connectivity natively, avoiding the secondary wedge-sorting step required by the wedge algorithm, with the latter typically being up to 13\% slower across test cases. Consequently, the primary comparison focuses on this CPU implementation and the CUDA-based GPU implementation for the HE-based algorithm.
 
-Figure~\ref{fig:speedup} illustrates the resulting speedup, demonstrating a clear increase in performance gains as the graph size grows. The speedup reaches up to $33\times$ for the largest graph instances, with an average speedup $23.7\times$. These results highlight the significant performance benefits of the GPU-based implementation. Pattern 1 exhibits lower speedup due to significant load imbalance caused by its non-uniform region distribution. The algorithm's parallel efficiency depends on the maximum region size; since Pattern 1 is dominated by one massive exterior region (with size $4(l+1)$) alongside many small triangular regions, GPU threads must wait for the largest region to process. High speedup is more readily achieved in patterns where region sizes are homogeneous, ensuring a balanced workload.
+Figure~\ref{fig:speedup} illustrates the resulting speedup, demonstrating a clear increase in performance gains as the graph size grows. The speedup reaches up to $33\times$ for the largest graph instances, with an average speedup of $23.7\times$. These results highlight the significant performance benefits of the GPU-based implementation. Pattern 1 exhibits lower speedup due to significant load imbalance caused by its non-uniform region distribution. The algorithm's parallel efficiency depends on the maximum region size; since Pattern 1 is dominated by one massive exterior region (with size $4(l+1)$) alongside many small triangular regions, GPU threads must wait for the largest region to process. High speedup is more readily achieved in patterns where region sizes are homogeneous, ensuring a balanced workload.
 
 % The reason why the speedup of pattern 1 is much less than the other patterns is that pattern 1 has only 1 large region (the exterior region with size $4(l+1)$ and all the other regions are triangular, and the parallel algorithm performance depends on the largest region size. The more the regions size is close to each other, the more speedup is achieved.
 
@@ -924,7 +918,7 @@ Figure~\ref{fig:speedup} illustrates the resulting speedup, demonstrating a clea
 
 
 \section{Conclusion}
-In this work, we propose two efficient GPU-accelerated algorithms for region extraction in plane graphs. The practical implementations, developed in CUDA C++, are optimized through techniques such as pointer jumping and by leveraging established CUDA libraries, including the Thrust library. The 2 original sequential algorithms have the same run-time complexity $O(m \log m)$ but the HE-based one achieves better performance than the Wedge-based and between the two proposed GPU-accelerated algorithms, the algorithm that is based on the half-edges achieves better run-time than the Wedge-based algorithm. The fastest proposed approach achieves up to $33\times$ speedup compared to the CPU-based implementations, enabling the extraction of planar graph regions for large-scale instances.
+In this work, we propose two efficient GPU-accelerated algorithms for region extraction in plane graphs. The practical implementations, developed in CUDA C++, are optimized through techniques such as pointer jumping and by leveraging established CUDA libraries, including the Thrust library. The 2 original sequential algorithms have the same run-time complexity $O(m \log m)$, but the HE-based one achieves better performance than the Wedge-based and between the two proposed GPU-accelerated algorithms, the algorithm that is based on the half-edges achieves better run-time than the Wedge-based algorithm. The fastest proposed approach achieves up to $33\times$ speedup compared to the CPU-based implementations, enabling the extraction of planar graph regions for large-scale instances.
 
 The GPU-accelerated method has broad applicability across multiple domains, including computer graphics, geographic information systems (GIS), VLSI circuit design, and robotics. Its advantages are particularly pronounced when processing extremely large graphs containing substantial numbers of vertices and edges.
 
