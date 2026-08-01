@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.4)  1 AUG 2026 23:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.4)  2 AUG 2026 01:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1347,13 +1347,13 @@ Package rerunfilecheck Info: File `main_copy.out' has not changed.
 Here is how much of TeX's memory you used:
  42402 strings out of 467867
  955634 string characters out of 5418335
- 1530515 words of memory out of 5000000
+ 1530514 words of memory out of 5000000
  70492 multiletter control sequences out of 15000+600000
  735395 words of font info for 171 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,13n,117p,1512b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi525\ecss0800.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0900.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0900.pk><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Bold.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-BoldItalic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Italic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Regular.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathbb.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathcal.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathex.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathrm.pfb>
-Output written on main_copy.pdf (9 pages, 346655 bytes).
+Output written on main_copy.pdf (9 pages, 346652 bytes).
 PDF statistics:
  373 PDF objects out of 1000 (max. 8388607)
  85 named destinations out of 1000 (max. 500000)
