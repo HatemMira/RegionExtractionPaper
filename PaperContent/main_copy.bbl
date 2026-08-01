@@ -14,7 +14,7 @@
 %Type = Book
 \bibitem[{10.(2002)}]{10.5555/504206}
 , \bibinfo{year}{2002}.
-\newblock \bibinfo{title}{The boost graph library: user guide and reference
+\newblock \bibinfo{title}{The Boost Graph Library: user guide and reference
   manual}.
 \newblock \bibinfo{publisher}{Addison-Wesley Longman Publishing Co., Inc.},
   \bibinfo{address}{USA}.

@@ -79,6 +79,7 @@
                 country={Egypt}}
 
 \author[1]{Cherif Salama}
+[orcid=0000-0002-6986-4697]
 \cormark[2]
 \ead{cherif.salama@aucegypt.edu}
 
@@ -98,7 +99,7 @@
 %   }
 
 \begin{abstract}
-This paper presents two high-performance GPU-accelerated algorithms for the extraction of connected regions in plane graphs using the CUDA programming model. While sequential algorithms for extracting all regions of a plane graph $G(V, E)$ achieve an optimal time complexity of $O(m \log m)$, they remain constrained by CPU throughput when processing large-scale datasets, and although established libraries such as the Boost Graph Library and the Computational Geometry Algorithms Library provide robust CPU-based solutions, a dedicated GPU implementation currently does not exist in the literature. We introduce a parallel framework that leverages NVIDIA GPUs to exploit the massive parallelism inherent in edge sorting and face traversal.  Experimental results demonstrate that our fastest CUDA-based approach significantly outperforms state-of-the-art CPU implementations, achieving a speedup of up to $33\times$ in total computation time.
+This paper presents two high-performance GPU-accelerated algorithms for the extraction of connected regions in plane graphs implemented using the CUDA programming model. While sequential algorithms for extracting all regions of a plane graph $G(V, E)$, with $m$, edges achieve an optimal time complexity of $O(m \log m)$, they remain constrained by CPU throughput when processing large-scale datasets, and although established libraries such as the Boost Graph Library and the Computational Geometry Algorithms Library provide robust CPU-based solutions, a dedicated GPU implementation currently does not exist in the literature. We introduce a parallel framework that leverages GPUs to exploit the massive parallelism inherent in edge sorting and face traversal.  Experimental results demonstrate that our fastest CUDA-based approach significantly outperforms state-of-the-art CPU implementations, achieving a speedup of up to $33\times$ in total computation time.
 \end{abstract}
 
 \begin{keywords}
@@ -114,7 +115,7 @@ A plane graph is a specific topological embedding of a planar graph in a two-dim
 
 % The first optimal sequential algorithm for region extraction that will bed discussed in the paper was proposed Mark de Berg et al~\cite{deberg2008computational} and it is based on Doubly Connected Edge List (DCEL) data structure and the second was proposed by Jiang and Bunke~\cite{JIANG1993553} and is based in Wedges data structure. To differentiate between them the algorithm will be called DCEL-based and Wedge-based algorithms, respectively. Both of them are achieving a time complexity of \(O(m \log m)\) and space complexity of \(O(m)\), where \(m\) is the number of edges in the graph \(G(V, E)\). As shown by Euler's formula for planar graphs, a simple plane graph with \(n \geq 3\) vertices has at most \(m \leq 3n - 6\) edges~\cite{Diestel2025}.
 
-Two primary optimal sequential algorithms for region extraction are discussed in this paper. The first one~\cite{JIANG1993553} is based on wedges, while the second one~\cite{deberg2008computational} is based on half-edges (HEs) and is implemented in many computational geometry libraries, such as the Computational Geometry Algorithms Library (CGAL)~\cite{10.1145/1653771.1653865} and the Boost Graph Library (BGL)~\cite{10.5555/504206}. For clarity, these approaches are referred to as the Wedge-based and HE-based algorithms, respectively. Both methods achieve a time complexity of $O(m \log m)$ and a space complexity of $O(m)$, where $m$ denotes the number of edges in the graph $G(V, E)$. As shown by Euler's formula for planar graphs, a simple plane graph with $n \geq 3$ vertices has at most $m \leq 3n - 6$ edges \cite{Diestel2025}, confirming that such graphs are inherently sparse.
+Two primary optimal sequential algorithms for region extraction are discussed in this paper. The first one~\cite{JIANG1993553} is based on wedges, while the second one~\cite{deberg2008computational} is based on half-edges (HEs) and is implemented in many computational geometry libraries, such as the Computational Geometry Algorithms Library (CGAL)~\cite{10.1145/1653771.1653865} and the Boost Graph Library (BGL)~\cite{10.5555/504206}. In this paper, these approaches are referred to as the Wedge-based and HE-based algorithms, respectively. Both methods achieve a time complexity of $O(m \log m)$ and a space complexity of $O(m)$, where $m$ denotes the number of edges in the graph $G(V, E)$. As shown by Euler's formula for planar graphs, a simple plane graph with $n \geq 3$ vertices has at most $m \leq 3n - 6$ edges \cite{Diestel2025}, confirming that such graphs are inherently sparse.
 
 Although theoretically optimal, the original sequential algorithms can be computationally impractical when applied to large-scale graphs commonly encountered in modern scientific and engineering applications, and the emergence of massively parallel platforms, such as GPUs with NVIDIA's CUDA~\cite{10.1145/1401132.1401152} framework, creates new opportunities for accelerating algorithmic graph operations.
 
@@ -132,7 +133,7 @@ The remainder of this work is structured as follows. Section~\textsc{ii} formali
 
 \textbf{Planar Graph:} A graph $G = (V, E)$ is defined as \textit{planar} if it can be drawn on the Euclidean plane $\mathbb{R}^2$ without any edges crossing except at their endpoints (vertices). The term describes a topological property of the graph itself rather than a particular drawing of it. In other words, a graph is called planar if there exists at least one way to represent it in the plane so that no two edges intersect improperly.
 
-It is crucial to distinguish the graph's inherent planarity from its visual representation; a planar graph may be rendered with edge crossings in a given drawing, yet it remains planar so long as at least one crossing-free configuration exists. Conversely, \textit{non-planar graphs} cannot be drawn without at least one intersection, regardless of the arrangement. The most fundamental examples of non-planar graphs are the complete graph $K_5$ and the complete bipartite graph $K_{3,3}$, as shown in Figure~\ref{fig:nonplanar}.
+It is crucial to distinguish the graph's inherent planarity from its visual representation; a planar graph may be rendered with edge crossings in a given drawing, yet it remains planar as long as at least one crossing-free configuration exists. Conversely, \textit{non-planar graphs} cannot be drawn without at least one intersection, regardless of the arrangement. The most fundamental examples of non-planar graphs are the complete graph $K_5$ and the complete bipartite graph $K_{3,3}$ shown in Figure~\ref{fig:nonplanar}.
 
 \begin{figure}
 \centering
@@ -411,7 +412,7 @@ The region grouping phase assembles wedges into closed polygonal regions, identi
     \end{enumerate}
     \item \textbf{Completion:} If there is no unvisited wedge, then the phase is completed; otherwise, go back to step~\ref{phase2_start}.
 \end{enumerate}
-Because every wedge is visited exactly once during the tracing loops, the cumulative cost of the binary searches across all $2m$ wedges is mathematically bounded at $O(m \log m)$. Consequently, when combining the sorting stage with the traversal loop, Phase 2 maintains an overall time complexity of $O(m \log m)$, matching the total asymptotic bounds of the complete extraction algorithm.
+Because every wedge is visited exactly once during the tracing loops, the cumulative cost of the binary searches across all $2m$ wedges is mathematically bounded by $O(m \log m)$. Consequently, when combining the sorting stage with the traversal loop, Phase 2 maintains an overall time complexity of $O(m \log m)$, matching the total asymptotic bounds of the complete extraction algorithm.
 
 
 \subsection{The HE-based Algorithm}
@@ -483,15 +484,15 @@ In this section, we will illustrate the GPU-accelerated algorithm for both the w
 The CUDA-based parallel implementation of the wedge-based algorithm adheres to the two-phase structure originally introduced by Jiang and Bunke~\cite{JIANG1993553}, with necessary adaptations to enable parallel execution. These adaptations include the incorporation of CUDA-specific libraries and the application of parallelization strategies tailored for GPU architectures. The implementation of each phase is detailed as follows:
 
 \subsubsection{Phase 1: Wedge Construction}
-The first phase identifies all wedges in the input plane graph. Despite this phase being computationally intensive, it is highly parallelizable and hence well-suited for GPU execution with the use of the thrust~\cite{BELL2012359} library in CUDA. The Thrust API provides an easy-to-use high-level interface for parallel programming on CUDA-enabled GPUs. It offers a wide range of functionalities such as scan, sort, reductions, and data transformations. 
+The first phase identifies all wedges in the input plane graph. Despite this phase being computationally intensive, it is highly parallelizable and hence well-suited for GPU execution with the use of the Thrust~\cite{BELL2012359} library in CUDA. The Thrust API provides an easy-to-use high-level interface for parallel programming on CUDA-enabled GPUs. It offers a wide range of functionalities such as scan, sort, reductions, and data transformations. 
 The computation proceeds as follows:
 
 \begin{itemize}
     \item \textbf{Copy Edges:} Copy the edges data from the CPU to the GPU.
     \item \textbf{Edge Duplication:} Each undirected edge is passed to a thread to get duplicated to form two directed edges representing both directions. This prepares the graph for directional angular computations. This step is fully parallelizable in a direct way by duplicating each edge on a thread.
     \item \textbf{Angle Calculation:} Each directed edge is passed to a thread, then the angle relative to the horizontal axis passing through its source vertex is calculated.  This step is fully parallelizable in a direct way by calculating the angle for each edge on a thread.
-    \item \textbf{Sorting:} Directed edges are first sorted by their source vertex and then by their angles. This step is parallelized using the sort function in the thrust library.
-    \item \textbf{Grouping Edges:} The sorted edges are grouped by their source vertices. This step is parallelized using the reduce\_by\_key function in the thrust library in CUDA, which identifies the groups around each vertex and calculates their sizes.
+    \item \textbf{Sorting:} Directed edges are first sorted by their source vertex and then by their angles. This step is parallelized using the sort function in the Thrust library.
+    \item \textbf{Grouping Edges:} The sorted edges are grouped by their source vertices. This step is parallelized using the reduce\_by\_key function in the Thrust library in CUDA, which identifies the groups around each vertex and calculates their sizes.
     \item \textbf{Wedge Generation:} Each vertex group is passed to a thread where wedges are constructed by pairing each edge with its successive neighbor in the group, with the last edge paired with the first to complete the cycle. This step is also parallelizable, with each thread independently processing a group of sorted edges, where the number of iterations per thread corresponds to the number of edges in a group, which is typically much less than \(m\), the total number of edges in the graph.
 \end{itemize}
 
@@ -499,7 +500,7 @@ The computation proceeds as follows:
 The region grouping phase assembles wedges into closed polygonal regions, identifying all face boundaries of the plane graph. Unlike the first phase, this phase in the original algorithm requires sequential traversal and dynamic data-dependent operations, which are inherently less amenable to parallelization, but still, this phase is accelerated as illustrated in the following steps of the algorithm.
 
 \begin{enumerate}
-    \item \textbf{Wedge Sorting:} The resulting wedges from phase 1 are stored by their vertex pairs for efficient lookup. The sort step is done using the thrust library in CUDA.
+    \item \textbf{Wedge Sorting:} The resulting wedges from phase 1 are stored by their vertex pairs for efficient lookup. The sort step is done using the Thrust library in CUDA.
     \item \textbf{Wedge Initialization:} All the wedges are marked as unvisited in preparation for region extraction, each wedge in a thread. This step is fully parallelizable.
     \item \textbf{Search for the contiguous wedges}: In this step, we pass each wedge to a thread and calculate the contiguous wedge for each wedge using binary search, and save this data. As a result, we can, later, find the contiguous wedge for any wedge in constant time. This step is fully parallelizable as each wedge searches for its contiguous wedge in a thread, and the binary search operation has time complexity \(O(\log m)\).
     \item \textbf{Calculate Leaders}: To uniquely identify the regions of the plane graph, we map all wedges belonging to the same region to a single representative identifier. We employ a parallel pointer jumping technique (also known as path doubling) to achieve this convergence efficiently. Let $W$ be the set of $2m$ wedges. Each wedge $w_i \in W$ maintains a successor pointer $S[i]$ and a label $L[i]$. Initially, $S[i]$ is set to the index of the contiguous wedge of $w_i$, and $L[i]$ is initialized to the index $i$. The objective is to reach a steady state where all wedges belonging to the same region $R \subseteq W$ share a uniform label, specifically the minimum index within that region:
@@ -633,7 +634,7 @@ In the second phase, the maximum number of iterations executed by any GPU thread
 \subsection{The HE-based Algorithm}
 
 \subsubsection{Phase 1: Half-Edges Construction}
-All the steps in this phase are fully parallelizable, as the \textbf{Half-Edge Creation} and the \textbf{Angle Calculation} steps are parallelized through launching kernels for each half-edge, and the \textbf{Angular Sorting} step is done using the thrust library, and the \textbf{Next Edge Linking} step is parallelized through kernels for each half-edge. At the end of this phase, the next edge for each half-edge is calculated to be used in the next phase.
+All the steps in this phase are fully parallelizable, as the \textbf{Half-Edge Creation} and the \textbf{Angle Calculation} steps are parallelized through launching kernels for each half-edge, and the \textbf{Angular Sorting} step is done using the Thrust library, and the \textbf{Next Edge Linking} step is parallelized through kernels for each half-edge. At the end of this phase, the next edge for each half-edge is calculated to be used in the next phase.
 
 \subsubsection{Phase 2: Region Traversal}
 All the steps in this phase are directly parallelized, starting from marking all half-edges as unvisited, then calculating the leader half-edges using the same pointer jumping approach used in the Wedge-based algorithm, and at the end constructing the regions and sending the data back to the CPU.
@@ -984,7 +985,7 @@ Graph ID & GPU-HE Time (s) & GPU-Wedge Time (s) & Speedup of GPU-HE & CPU-HE Tim
 
 
 \section{Conclusion}
-In this work, we propose two efficient GPU-accelerated algorithms for region extraction in plane graphs. The practical implementations, developed in CUDA C++, are optimized through techniques such as pointer jumping and by leveraging established CUDA libraries, including the Thrust library. The 2 original sequential algorithms have the same run-time complexity $O(m \log m)$, but the HE-based one achieves better performance than the Wedge-based and between the two proposed GPU-accelerated algorithms, the algorithm that is based on the half-edges achieves better run-time than the Wedge-based algorithm. The fastest proposed approach achieves up to $33\times$ speedup compared to the fastest CPU-based implementations, enabling the extraction of planar graph regions for large-scale instances.
+In this work, we proposed two efficient GPU-accelerated algorithms for region extraction in plane graphs. The practical implementations, developed in CUDA C++, are optimized through techniques such as pointer jumping and by leveraging established CUDA libraries, including the Thrust library. The 2 original sequential algorithms have the same run-time complexity $O(m \log m)$, but the HE-based one achieves better performance than the Wedge-based and between the two proposed GPU-accelerated algorithms, the algorithm that is based on the half-edges achieves better run-time than the Wedge-based algorithm. The fastest proposed approach achieves up to $33\times$ speedup compared to the fastest CPU-based implementations, enabling the extraction of planar graph regions for large-scale instances.
 
 The GPU-accelerated method has broad applicability across multiple domains, including computer graphics, geographic information systems (GIS), VLSI circuit design, and robotics. Its advantages are particularly pronounced when processing extremely large graphs containing substantial numbers of vertices and edges.
 
