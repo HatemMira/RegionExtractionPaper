@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.4)  3 AUG 2026 23:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.4)  4 AUG 2026 00:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -882,36 +882,36 @@ Package caption Info: New subtype `subtable' on input line 238.
 ) (main_copy_sc.aux)
 \openout1 = `main_copy_sc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 60.
-LaTeX Font Info:    Trying to load font information for LS1+stix on input line 60.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 62.
+LaTeX Font Info:    Trying to load font information for LS1+stix on input line 62.
  (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stix.fd
 File: ls1stix.fd 2015/04/17 v1.1.2-latex STIX LS1 font definitions
 )
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 60.
-LaTeX Font Info:    Trying to load font information for LS2+stix on input line 60.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 62.
+LaTeX Font Info:    Trying to load font information for LS2+stix on input line 62.
  (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stix.fd
 File: ls2stix.fd 2015/04/17 v1.1.2-latex STIX LS2 font definitions
 )
-LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    ... okay on input line 62.
  (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count387
@@ -931,9 +931,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Command `\dddot' is already robust on input line 60.
-LaTeX Info: Command `\ddddot' is already robust on input line 60.
-Package hyperref Info: Link coloring ON on input line 60.
+LaTeX Info: Command `\dddot' is already robust on input line 62.
+LaTeX Info: Command `\ddddot' is already robust on input line 62.
+Package hyperref Info: Link coloring ON on input line 62.
  (main_copy_sc.out) (main_copy_sc.out)
 \@outlinefile=\write4
 \openout4 = `main_copy_sc.out'.
@@ -977,76 +977,59 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable tick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into your preamble.
- on input line 60.
+ on input line 62.
 
 \verbatim@out=\write5
 \openout5 = `main_copy_sc.abs'.
 
-LaTeX Font Info:    Trying to load font information for LS1+stixscr on input line 110.
-(C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixscr.fd
-File: ls1stixscr.fd 2015/04/17 v1.1.2-latex STIX script LS1 font definitions
-)
-LaTeX Font Info:    Trying to load font information for LS2+stixex on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixex.fd
-File: ls2stixex.fd 2015/04/17 v1.1.2-latex STIX extentions LS2 font definitions
-)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for LS1+stixfrak on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixfrak.fd
-File: ls1stixfrak.fd 2015/04/17 v1.1.2-latex STIX fraktur LS1 font definitions
-)
-LaTeX Font Info:    Trying to load font information for LS1+stixbb on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixbb.fd
-File: ls1stixbb.fd 2015/04/17 v1.1.2-latex STIX blackboard LS1 font definitions
-)
-LaTeX Font Info:    Trying to load font information for LS2+stixcal on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixcal.fd
-File: ls2stixcal.fd 2015/04/17 v1.1.2-latex STIX calligraphic LS2 font definitions
-)
-LaTeX Font Info:    Trying to load font information for LS1+stixsf on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixsf.fd
-File: ls1stixsf.fd 2015/04/17 v1.1.2-latex STIX sans-serif LS1 font definitions
-)
-LaTeX Font Info:    Trying to load font information for LS2+stixtt on input line 110.
- (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixtt.fd
-File: ls2stixtt.fd 2015/04/17 v1.1.2-latex STIX typewriter LS2 font definitions
-)
-Overfull \hbox (117.0831pt too wide) detected at line 110
+
+Overfull \hbox (117.0831pt too wide) detected at line 112
 []
  []
 
-(main_copy_sc.abs)
+(main_copy_sc.abs
+LaTeX Font Info:    Trying to load font information for LS1+stixscr on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixscr.fd
+File: ls1stixscr.fd 2015/04/17 v1.1.2-latex STIX script LS1 font definitions
+)
+LaTeX Font Info:    Trying to load font information for LS2+stixex on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixex.fd
+File: ls2stixex.fd 2015/04/17 v1.1.2-latex STIX extentions LS2 font definitions
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for LS1+stixfrak on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixfrak.fd
+File: ls1stixfrak.fd 2015/04/17 v1.1.2-latex STIX fraktur LS1 font definitions
+)
+LaTeX Font Info:    Trying to load font information for LS1+stixbb on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixbb.fd
+File: ls1stixbb.fd 2015/04/17 v1.1.2-latex STIX blackboard LS1 font definitions
+)
+LaTeX Font Info:    Trying to load font information for LS2+stixcal on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixcal.fd
+File: ls2stixcal.fd 2015/04/17 v1.1.2-latex STIX calligraphic LS2 font definitions
+)
+LaTeX Font Info:    Trying to load font information for LS1+stixsf on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixsf.fd
+File: ls1stixsf.fd 2015/04/17 v1.1.2-latex STIX sans-serif LS1 font definitions
+)
+LaTeX Font Info:    Trying to load font information for LS2+stixtt on input line 1.
+ (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixtt.fd
+File: ls2stixtt.fd 2015/04/17 v1.1.2-latex STIX typewriter LS2 font definitions
+)) [1
 
-Package hyperref Warning: Ignoring empty anchor on input line 110.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 110.
-
-
-Package hyperref Warning: Ignoring empty anchor on input line 110.
-
-<thumbnails/cas-email.jpeg, id=6, 225.84375pt x 225.84375pt>
-File: thumbnails/cas-email.jpeg Graphic file (type jpg)
-<use thumbnails/cas-email.jpeg>
-Package pdftex.def Info: thumbnails/cas-email.jpeg  used on input line 110.
-(pdftex.def)             Requested size: 7.99838pt x 8.0pt.
-
-Package hyperref Warning: Ignoring empty anchor on input line 110.
-
-[1
-
-{C:/Users/Hatem/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t1.enc} <./thumbnails/cas-email.jpeg>] [2]
-LaTeX Font Info:    Trying to load font information for TS1+stix on input line 294.
+{C:/Users/Hatem/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t1.enc}] [2]
+LaTeX Font Info:    Trying to load font information for TS1+stix on input line 296.
  (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ts1stix.fd
 File: ts1stix.fd 2015/04/17 v1.1.2-latex STIX TS1 font definitions
-) [3{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-ts1.enc}] [4] [5] [6] [7] [8] [9]
+) [3{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-ts1.enc}] [4] [5] [6] [7] [8]
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no = in font nullfont!
@@ -1072,191 +1055,191 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 
-Underfull \hbox (badness 1629) in paragraph at lines 869--869
+Underfull \hbox (badness 1629) in paragraph at lines 871--871
 []|\T1/cmss/m/n/9 Number of Re-
  []
 
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 Graph
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 HE
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Time
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Wedge
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (6.12683pt too wide) in paragraph at lines 956--956
+Overfull \hbox (6.12683pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 CPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 HE
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (6.12683pt too wide) in paragraph at lines 956--956
+Overfull \hbox (6.12683pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 CPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Wedge
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (6.12683pt too wide) in paragraph at lines 956--956
+Overfull \hbox (6.12683pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 CGAL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (6.12683pt too wide) in paragraph at lines 956--956
+Overfull \hbox (6.12683pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 BGL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (6.12683pt too wide) in paragraph at lines 956--956
+Overfull \hbox (6.12683pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Overfull \hbox (3.71767pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.71767pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 0.00675| 
  []
 
 
-Overfull \hbox (3.71767pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.71767pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 0.00715| 
  []
 
 
-Overfull \hbox (3.71767pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.71767pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 417.035| 
  []
 
 
-Overfull \hbox (3.71767pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.71767pt too wide) in paragraph at lines 958--958
 []|\T1/cmss/m/n/9 1026.41| 
  []
 
-[11] (main_copy_sc.bbl [12]) [13] (main_copy_sc.aux)
+[10] (main_copy_sc.bbl [11]) [12] (main_copy_sc.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1265,17 +1248,17 @@ Package rerunfilecheck Info: File `main_copy_sc.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 42019 strings out of 467867
- 948473 string characters out of 5418335
- 1521429 words of memory out of 5000000
- 70131 multiletter control sequences out of 15000+600000
- 735400 words of font info for 171 fonts, out of 8000000 for 9000
+ 41981 strings out of 467867
+ 947739 string characters out of 5418335
+ 1529641 words of memory out of 5000000
+ 70095 multiletter control sequences out of 15000+600000
+ 720435 words of font info for 153 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,13n,98p,1515b,2248s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi525\ecss0800.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0900.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0900.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0800.pk><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Bold.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-BoldItalic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Italic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Regular.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathbb.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathcal.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathex.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathrm.pfb>
-Output written on main_copy_sc.pdf (13 pages, 342723 bytes).
+ <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0800.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi525\ecss0800.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0900.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0900.pk><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Bold.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-BoldItalic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Italic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Regular.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathbb.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathcal.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathex.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathrm.pfb>
+Output written on main_copy_sc.pdf (12 pages, 328680 bytes).
 PDF statistics:
- 426 PDF objects out of 1000 (max. 8388607)
- 89 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 416 PDF objects out of 1000 (max. 8388607)
+ 88 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
