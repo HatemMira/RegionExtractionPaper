@@ -1,0 +1,137 @@
+\section{Optimal Sequential Algorithms}
+In this section, we illustrate the steps of the optimal sequential algorithms for region extraction (the Wedge-based and the HE-based), which have run-time complexity \( O (m \log m) \) and space complexity \( O (m) \). We will also shed light on the time complexity of each step because it will be the guide to the design of the GPU-accelerated algorithms proposed in the methodology. Both algorithms take as input an undirected connected graph \(G(V, E)\) with a list of vertices \(V\), each vertex \(v_i\) with coordinates \((x_i, y_i)\), and a list of undirected edges \(E\). 
+
+
+\subsection{The Wedge-based Algorithm}
+The algorithm proceeds in two main phases: first, it identifies all possible wedges; next, it groups these wedges to form the regions.
+\subsubsection{Phase 1: Wedge Construction}
+The first phase identifies all wedges in the input plane graph, which are angular regions formed around each vertex by consecutive incident edges. The steps of this phase are as follows:
+
+\begin{enumerate}
+    \item \textbf{Edge Duplication:} Each undirected edge \( (v_i, v_j) \) is duplicated to form two directed edges \( \langle v_i, v_j\rangle \) and \( \langle v_j, v_i\rangle \) representing both directions. This prepares the graph for directional angular computations. Time complexity to duplicate all edges is \( O(m) \).
+    \item \textbf{Angle Calculation:} For each directed edge \( \langle v_i, v_j\rangle \), the angle \( \theta\) relative to the positive side of the horizontal axis passing through its source vertex is computed, enabling sorting of edges by their spatial orientation around each vertex. The time complexity of calculating angles for all edges is \( O(m) \).
+    \item \textbf{Sorting:} Directed edges \( \langle v_i, v_j\rangle \) are first sorted by their source vertex \( v_i\) and then by their angles \( \theta \). This ensures that edges incident to each vertex are arranged in a counter-clockwise order to allow wedge formation. The time complexity of sorting edges is \( O(m \log m) \). An example of sorting edges by their angles is shown in Figure~\ref{fig:edge_angle_sorting}, where the sorted edges are \(e_i, e_j, e_k\).
+    \item \textbf{Wedge Generation:} For each vertex group which has the same source vertex \( v_i \), wedges are constructed by pairing each edge \((\langle v_i, v_j \rangle, \theta_1)\) with its successive neighbor in the group \((\langle v_i, v_k \rangle, \theta_2)\) to build the wedge \( (v_k, v_i, v_j) \), with the last edge paired with the first to complete the cycle. The time complexity of building wedges from the edges is \( O(m) \). In Figure~\ref{fig:edge_angle_sorting} the constructed wedges are \((v_6, v_1, v_2)\, (v_3, v_1, v_6)\, (v_2, v_1, v_3)\).
+\end{enumerate}
+
+The time complexity of the first phase is \(O(m \log m)\) because of the sorting step.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        % vertices
+        \coordinate (v1) at (0,4.5);
+        \coordinate (v2) at (-1.5,2.5);
+        \coordinate (v3) at (3,3);
+        \coordinate (v6) at (2.5, 0.5);
+        \coordinate (xref) at (1,4.5); % reference point for x-axis direction from v1
+        
+        % directed edges
+        \draw[>=Stealth, ->] (v1) -- (v2);
+        \draw[>=Stealth, ->] (v1) -- (v3);
+        \draw[>=Stealth, ->] (v1) -- (v6);
+        
+        \draw[dashed] (-2.5,4.5) -- (4,4.5);
+        
+        % labels with math mode
+        \foreach \v/\pos/\labeltext in {v1/above/$v_1$, v2/below left/$v_2$, v3/below right/$v_3$, v6/left/$v_6$}
+            \node[\pos] at (\v) {\labeltext};
+        
+            
+        % edge labels (midpoints)
+        \node[left] at ($(v1)!0.5!(v2)$) {$e_i$};
+        \node[left] at ($(v1)!0.5!(v6)$) {$e_j$};
+        \node[below left] at ($(v1)!0.5!(v3)$) {$e_k$};
+
+         
+        % Angles with labels
+        \pic [draw=orange, text=orange, ->, "$\theta_i$", angle radius=0.4cm, angle eccentricity=1.45] {angle = xref--v1--v2};
+        \pic [draw=green, text=green, ->, "$\theta_j$", angle radius=0.8cm, angle eccentricity=1.25] {angle = xref--v1--v6};
+        \pic [draw=blue, text=blue, ->, "$\theta_k$", angle radius=1.2cm, angle eccentricity=1.2] {angle = xref--v1--v3};
+        % \pic [draw=green, text=green, ->, "$ \theta_k $, angle radius=0.8cm, angle eccentricity=1.2] {angle = xref--v1--v3};
+        % \pic [draw, ->, angle radius=0.6cm, angle eccentricity=1.2, angle label={$ \theta_j $}] {angle = xref--v1--v6};
+
+        
+        
+    \end{tikzpicture}
+    \caption{Sorting Edges according to angle with the horizontal axis. Sorted edges are \( e_i, e_j, e_k\)}
+    \label{fig:edge_angle_sorting}
+\end{figure}
+
+\subsubsection{Phase 2: Build Regions from Wedges}
+The region grouping phase assembles wedges into closed polygonal regions, identifying all face boundaries of the plane graph. It can be easily proven that a region can be defined by a sequence of wedges \( (W_1, W_2, ..., W_k)\) if and only if \( W_i\) and \( W_{i + 1}\) are contiguous for \( i = 1, 2, ..., k - 1\) and also \( W_k\) and \(W_1\) are contiguous. We will depend on that to create the regions according to the following steps:
+
+\begin{enumerate}
+    \item \textbf{Sorting Wedges:} Given the list of wedges \( (v_i, v_j, v_k) \) constructed from the first phase, wedges are sorted by \( v_i \) then by \( v_j \). Time complexity is \( O(m \log m) \).
+    \item \textbf{Marking Wedges:} Mark all wedges as unvisited wedges. Time Complexity is \( O (m) \).
+    \item \label{phase2_start} \textbf{Region Start Wedge:} Each wedge is examined in order. If a wedge has not yet been used to construct a previous region, it is used as the starting wedge \( W_1 \) for constructing a new region, and it is marked as a visited wedge.
+    \item \textbf{Contiguous Wedge Search:} In this step, we iterate over the wedges till we define the current region as follows: 
+    \begin{enumerate}
+        \item \textbf{Binary Search:} Using binary search within the sorted wedge list, the algorithm finds the next contiguous wedge \( W_{i + 1}\) sharing an edge with the current one \( W_i \), extending the region boundary, and the new wedge is marked as a visited wedge. Time complexity of the binary search step is \( O (\log m) \).
+        \item \textbf{Closure Detection:} The process continues until the initial wedge is reached again, completing the closed polygonal region.
+    \end{enumerate}
+    \item \textbf{Completion:} If there is no unvisited wedge, then the phase is completed; otherwise, go back to step~\ref{phase2_start}.
+\end{enumerate}
+Because every wedge is visited exactly once during the tracing loops, the cumulative cost of the binary searches across all $2m$ wedges is mathematically bounded by $O(m \log m)$. Consequently, when combining the sorting stage with the traversal loop, Phase 2 maintains an overall time complexity of $O(m \log m)$, matching the total asymptotic bounds of the complete extraction algorithm.
+
+
+\subsection{The HE-based Algorithm}
+The algorithm proceeds in two main phases: first, it constructs the half-edges with their next and twin edges from the input graph; next, it traverses the half-edges to extract all regions.
+
+\subsubsection{Phase 1: Half-Edges Construction}
+The first phase builds the topological relationships required for the half-edges. The steps are as follows:
+
+\begin{enumerate}
+    \item \textbf{Half-Edge Creation:} Each undirected edge $(v_i, v_j)$ is split into two directed \textit{half-edges}, $e_{i,j}$ (originating at $v_i$) and $e_{j,i}$ (originating at $v_j$). Each half-edge is assigned to its twin edge immediately. Time complexity is $O(m)$.
+    \item \textbf{Angle Calculation:} For each directed edge \( \langle v_i, v_j\rangle \), the angle \( \theta\) is calculated in a similar way to the step in the Wedge-based algorithm. The time complexity of calculating angles for all edges is \( O(m) \).
+    \item \textbf{Angular Sorting:} For every vertex $v$, all half-edges originating at $v$ are sorted by their polar angle ascending. This step is identical to the Wedge-based algorithm, and is required to determine the relative order of edges around a vertex. Time complexity is $O(m \log m)$.
+    \item \textbf{Next Edge Linking:} For each half-edge $e_{i,j}$ (which terminates at $v_j$), its next edge must be a half-edge originating at $v_j$. Specifically, the immediate clockwise successor of its twin edge around the vertex $v_j$ (the previous half-edge of its twin edge in the sorted half-edges around $v_j$). This ensures that the traversal follows the boundary of the incident face. The time complexity of linking one edge is $O(1)$ and, hence, for all edges is $O(m)$. A visual example of this step is shown in Figure~\ref{fig:dcel_pointers}, where the next half-edge of $e_{3,1}$ is calculated as $e_{1,6}$ because it is the half-edge that has the largest angle less than its twin edge $e_{1,3}$.
+\end{enumerate}
+
+Similar to the Wedge-based approach, the total time complexity of the HE-based algorithm is $O(m \log m)$ due to the sorting requirement.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        vertex/.style={circle, fill=black, inner sep=1.5pt},
+        halfedge/.style={->, >=Stealth, shorten >=4pt, shorten <=4pt},
+        % nextarrow/.style={->, >=latex, dashed, orange}
+        nextarrow/.style={->, orange}
+    ]
+        % Vertices
+        \node[vertex, label=right:$v_3$] (vi) at (3,3) {};
+        \node[vertex, label=above:$v_1$] (vj) at (0,4.5) {};
+        \node[vertex, label=right:$v_6$] (vk) at (2.5, 0.5) {};
+        \node[vertex, label=left:$v_2$] (vl) at (-1.5,2.5) {};
+
+        % Half-edges (twins)
+        \draw[halfedge, transform canvas={xshift=3pt}] (vi) -- (vj) node[midway, above] {$e_{3,1}$};
+        \draw[halfedge, transform canvas={xshift=-3pt}] (vj) -- (vi) node[midway, below] {$e_{1,3}$};
+
+        % Next pointer visualization
+        \draw[halfedge] (vj) -- (vk) node[midway, below left] {$e_{1,6}$};
+        \draw[halfedge] (vj) -- (vl) node[midway, above left] {$e_{1,2}$};
+        % \draw[->, dashed, bend right, orange] (-1.25, 1.75) to node[right, font=\small] {next} (0, 0.5);
+        % \draw[nextarrow] (-1.25, 1.75) to node[above right, font=\small] {next} (0, 0.5);
+        % \draw[nextarrow] (0, 0.5) arc (-45 : 135 : 0.4)
+        %     node[midway, right, font=\scriptsize, text=orange] {next};
+        \draw[nextarrow] (1, 4) arc (330 : 290 : 0.79)
+    node[midway, right, font=\small, text=orange]{};
+
+        \node at (2,2.5) {$R_2$};
+    \end{tikzpicture}
+    \caption{Next Edge Linking. The next edge of $e_{3,1}$ points to the half-edge $e_{1,6}$ based on the angular order around $v_1$.}
+    \label{fig:dcel_pointers}
+\end{figure}
+
+\subsubsection{Phase 2: Region Traversal}
+Once the half-edges with their next and twin edges are calculated, extracting regions becomes a linear-time pointer-following exercise. Unlike the Wedge-based algorithm, no binary search is required in this phase because the topology is explicitly stored.
+
+\begin{enumerate}
+    \item \textbf{Initialization:} All half-edges are marked as unvisited. A global list of regions is initialized. Time complexity is $O(m)$.
+    \item \textbf{Edge Selection:} The algorithm iterates through the half-edges. If a half-edge $e$ has not been visited, it is selected as the starting edge of a new region.
+    \item \textbf{Cycle Traversal:} Starting from $e$, the algorithm follows the next half-edges until the starting half-edge $e$ is reached again. All half-edges encountered in this cycle are marked as visited and added to the current region.
+    \item \textbf{Completion:} The process repeats until all half-edges have been visited. 
+\end{enumerate}
+
+Since each half-edge is visited exactly once and the time complexity is constant per helf-edge during the traversal, the time complexity of Phase 2 is $O(m)$. Consequently, the overall complexity of the HE-based algorithm is dominated by the sorting in Phase 1, resulting in $O(m \log m)$. Although the HE-based algorithm has the same time complexity as the Wedge-based algorithm, $O(m \log m)$, it does not have the binary search step, and it is expected to have a better run-time performance.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.4)  2 AUG 2026 01:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.4)  12 AUG 2026 20:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1064,29 +1064,29 @@ LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 
 Package hyperref Warning: Ignoring empty anchor on input line 110.
 
-[1{C:/Users/Hatem/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t1.enc}
+(Sections/introduction.tex) (Sections/DefinitionsAndNotations.tex [1{C:/Users/Hatem/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t1.enc}
 
 
 {C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-0.enc} <./thumbnails/cas-email.jpeg>]
-LaTeX Font Info:    Trying to load font information for TS1+stix on input line 294.
+LaTeX Font Info:    Trying to load font information for TS1+stix on input line 164.
  (C:\Users\Hatem\AppData\Local\Programs\MiKTeX\tex/latex/stix\ts1stix.fd
 File: ts1stix.fd 2015/04/17 v1.1.2-latex STIX TS1 font definitions
-) [2{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-ts1.enc}]
-Underfull \hbox (badness 1087) in paragraph at lines 342--343
+) [2{C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-ts1.enc}]) (Sections/OptimalSequentialAlgorithms.tex
+Underfull \hbox (badness 1087) in paragraph at lines 2--3
 \T1/stix/m/n/10 se-quen-tial al-go-rithms for re-gion ex-trac-tion (the Wedge-
  []
 
 
-Underfull \hbox (badness 1552) in paragraph at lines 406--407
+Underfull \hbox (badness 1552) in paragraph at lines 66--67
 []\T1/stix/b/n/10 Marking Wedges: \T1/stix/m/n/10 Mark all wedges as un-vis-ited
  []
 
-[3] [4] [5]
-Overfull \hbox (6.46342pt too wide) in paragraph at lines 578--579
+[3]) (Sections/Methodology.tex [4] [5]
+Overfull \hbox (6.46342pt too wide) in paragraph at lines 99--100
  [][] 
  []
 
-[6]
+) (Sections/ExperimentsAndResults.tex [6]
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no = in font nullfont!
@@ -1112,196 +1112,196 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no = in font nullfont!
 Missing character: There is no 0 in font nullfont!
 
-Underfull \hbox (badness 2564) in paragraph at lines 869--869
+Underfull \hbox (badness 2564) in paragraph at lines 226--226
 []|\T1/cmss/m/n/9 Number of Ver-
  []
 
 
-Underfull \hbox (badness 6173) in paragraph at lines 869--869
+Underfull \hbox (badness 6173) in paragraph at lines 226--226
 []|\T1/cmss/m/n/9 Number of Re-
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 Graph
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 HE
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Time
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Wedge
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (3.94545pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.94545pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 CPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 HE
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (3.94545pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.94545pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 CPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Wedge
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (3.94545pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.94545pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 CGAL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (3.94545pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.94545pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 BGL
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 Time
  []
 
 
-Overfull \hbox (3.94545pt too wide) in paragraph at lines 956--956
+Overfull \hbox (3.94545pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 Speedup
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--956
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
 \T1/cmss/m/n/9 GPU-
  []
 
 
-Overfull \hbox (1.53629pt too wide) in paragraph at lines 956--956
+Overfull \hbox (1.53629pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 0.00675| 
  []
 
 
-Overfull \hbox (1.53629pt too wide) in paragraph at lines 956--956
+Overfull \hbox (1.53629pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 0.00715| 
  []
 
 
-Overfull \hbox (1.53629pt too wide) in paragraph at lines 956--956
+Overfull \hbox (1.53629pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 417.035| 
  []
 
 
-Overfull \hbox (1.53629pt too wide) in paragraph at lines 956--956
+Overfull \hbox (1.53629pt too wide) in paragraph at lines 313--313
 []|\T1/cmss/m/n/9 1026.41| 
  []
 
-(main_copy.bbl [8]
+) (Sections/conclusion.tex) (main_copy.bbl [8]
 Underfull \hbox (badness 10000) in paragraph at lines 23--32
 \T1/zi4/m/n/8 / / www . sciencedirect . com / science / article / pii / S0010448522001816$[][]\T1/stix/m/n/8 ,
  []
@@ -1345,15 +1345,15 @@ Package rerunfilecheck Info: File `main_copy.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 42402 strings out of 467867
- 955634 string characters out of 5418335
- 1530514 words of memory out of 5000000
- 70492 multiletter control sequences out of 15000+600000
+ 42440 strings out of 467867
+ 957502 string characters out of 5418335
+ 1530515 words of memory out of 5000000
+ 70510 multiletter control sequences out of 15000+600000
  735395 words of font info for 171 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,13n,117p,1512b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,13n,117p,1545b,2249s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi525\ecss0800.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx0900.pk> <C:\Users\Hatem\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecss0900.pk><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Bold.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-BoldItalic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Italic.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/STIXGeneral-Regular.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathbb.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathcal.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathex.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit.pfb><C:/Users/Hatem/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathrm.pfb>
-Output written on main_copy.pdf (9 pages, 346652 bytes).
+Output written on main_copy.pdf (9 pages, 346640 bytes).
 PDF statistics:
  373 PDF objects out of 1000 (max. 8388607)
  85 named destinations out of 1000 (max. 500000)

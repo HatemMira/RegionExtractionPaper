@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main_copy_sc"] 1785790190.33005 "main_copy_sc.aux" "main_copy_sc.bbl" "main_copy_sc" 1785790441.91213 0
+["bibtex main_copy_sc"] 1786555135.78995 "main_copy_sc.aux" "main_copy_sc.bbl" "main_copy_sc" 1786555140.15355 0
   "./references.bib" 1785616350 6710 a51aaad87118629b12c2472945b0342c ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/bibtex/bst/els-cas-templates/cas-model2-names.bst" 1715332323 31802 28b630660245c09f173aac55be552b29 ""
-  "main_copy_sc.aux" 1785790440 10503 6bdddfcedb87ed3467ce0f5b0d56b59e "pdflatex"
+  "main_copy_sc.aux" 1786555139 10503 6bdddfcedb87ed3467ce0f5b0d56b59e "pdflatex"
   (generated)
   "main_copy_sc.bbl"
   "main_copy_sc.blg"
   (rewritten before read)
-["pdflatex"] 1785790437.83976 "c:/OldData/[AUCLaptop]/Personal/Masters/Papers/BasedOnWo/Paper/RegionExtractionPaper/PaperContent/main_copy_sc.tex" "main_copy_sc.pdf" "main_copy_sc" 1785790441.9128 0
+["pdflatex"] 1786555136.17443 "c:/OldData/[AUCLaptop]/Personal/Masters/Papers/BasedOnWo/Paper/RegionExtractionPaper/PaperContent/main_copy_sc.tex" "main_copy_sc.pdf" "main_copy_sc" 1786555140.15424 0
   "C:/Users/Hatem/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1779214785 99737 075dcb6692507d0d508855a446ebad7e ""
   "C:/Users/Hatem/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi525/ecss0800.pk" 1779214772 14032 7eb157741d1c98f93f987b2568cef418 ""
   "C:/Users/Hatem/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecss0900.pk" 1779214791 17932 8382cb318a5df1f5b1455942874796b0 ""
@@ -230,6 +230,7 @@
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/nameref.sty" 1769681241 11459 697f11f6c439d25d39d2674b99566af4 ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/pd1enc.def" 1769681241 14249 b94983bbccc8d5739c16cc91d1fd1c3b ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/puenc.def" 1769681241 117118 2e3ba580751de5583beacf2e5fee69a9 ""
+  "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/import/import.sty" 1585736816 6201 0ad8b5da8e12f60a88d546b2198a56f2 ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/kvoptions/kvoptions.sty" 1656236481 22555 6d8e155cfef6d82c3d5c742fea7c992e ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/kvsetkeys/kvsetkeys.sty" 1665066333 13815 760b0c02f691ea230f5359c4e1de23a7 ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1761202581 30662 bfd6e864f4ffc5018b0e2b6260c3181c ""
@@ -276,12 +277,18 @@
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/svgnam.def" 1729265222 4705 34614fec2d4cfd7794c82198c9076871 ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "C:/Users/Hatem/AppData/Local/Programs/MiKTeX/tex/latex/xstring/xstring.sty" 1693735632 123 a302f2c651a95033260db60e51527ae8 ""
-  "c:/OldData/[AUCLaptop]/Personal/Masters/Papers/BasedOnWo/Paper/RegionExtractionPaper/PaperContent/main_copy_sc.tex" 1785790437 71724 a041bffbcf9ffadf6a19f49e7707d5f1 ""
-  "main_copy_sc.abs" 1785790439 966 39bf32ed06c1eefe071f6126ba92f86c "pdflatex"
-  "main_copy_sc.aux" 1785790440 10503 6bdddfcedb87ed3467ce0f5b0d56b59e "pdflatex"
-  "main_copy_sc.bbl" 1785790190 8100 f5bfcd8b224ed5116cf4136f81051b8a "bibtex main_copy_sc"
-  "main_copy_sc.out" 1785790439 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main_copy_sc.tex" 1785790437 71724 a041bffbcf9ffadf6a19f49e7707d5f1 ""
+  "Sections/DefinitionsAndNotations.tex" 1786554813 10646 9d243a6dd848dd2203d5c1224ce15c69 ""
+  "Sections/ExperimentsAndResults.tex" 1786555069 20696 f038ef2f7cbe758d7c4e6bdf8e1fad18 ""
+  "Sections/Methodology.tex" 1786554973 15418 cd6ae21d96db22db50c2baa9a8adcc1d ""
+  "Sections/OptimalSequentialAlgorithms.tex" 1786554914 12350 6a3b6c0c34c77138a0e7e95dee9e50f8 ""
+  "Sections/conclusion.tex" 1786555120 1139 ad02ace2cd83b9a7b59c0630b4a6aa5c ""
+  "Sections/introduction.tex" 1786554493 5518 13aa9ab0a090abb47884c772c07fbf46 ""
+  "c:/OldData/[AUCLaptop]/Personal/Masters/Papers/BasedOnWo/Paper/RegionExtractionPaper/PaperContent/main_copy_sc.tex" 1786555130 6202 d451d359a2b56490cfc49f36623a2e6d ""
+  "main_copy_sc.abs" 1786555137 966 39bf32ed06c1eefe071f6126ba92f86c "pdflatex"
+  "main_copy_sc.aux" 1786555139 10503 6bdddfcedb87ed3467ce0f5b0d56b59e "pdflatex"
+  "main_copy_sc.bbl" 1786555136 8100 f5bfcd8b224ed5116cf4136f81051b8a "bibtex main_copy_sc"
+  "main_copy_sc.out" 1786555137 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main_copy_sc.tex" 1786555130 6202 d451d359a2b56490cfc49f36623a2e6d ""
   "thumbnails/cas-email.jpeg" 1584168040 8764 ae276cc9956197082d008c18ae4cbb28 ""
   (generated)
   "main_copy_sc.abs"

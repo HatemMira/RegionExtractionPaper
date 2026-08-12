@@ -1,0 +1,163 @@
+\section{Methodology}
+In this section, we will illustrate the GPU-accelerated algorithm for both the wedge-based and the HE-based algorithms.  
+
+\subsection{The Wedge-based Algorithm}
+The CUDA-based parallel implementation of the wedge-based algorithm adheres to the two-phase structure originally introduced by Jiang and Bunke~\cite{JIANG1993553}, with necessary adaptations to enable parallel execution. These adaptations include the incorporation of CUDA-specific libraries and the application of parallelization strategies tailored for GPU architectures. The implementation of each phase is detailed as follows:
+
+\subsubsection{Phase 1: Wedge Construction}
+The first phase identifies all wedges in the input plane graph. Despite this phase being computationally intensive, it is highly parallelizable and hence well-suited for GPU execution with the use of the Thrust~\cite{BELL2012359} library in CUDA. The Thrust API provides an easy-to-use high-level interface for parallel programming on CUDA-enabled GPUs. It offers a wide range of functionalities such as scan, sort, reductions, and data transformations. 
+The computation proceeds as follows:
+
+\begin{itemize}
+    \item \textbf{Copy Edges:} Copy the edges data from the CPU to the GPU.
+    \item \textbf{Edge Duplication:} Each undirected edge is passed to a thread to get duplicated to form two directed edges representing both directions. This prepares the graph for directional angular computations. This step is fully parallelizable in a direct way by duplicating each edge on a thread.
+    \item \textbf{Angle Calculation:} Each directed edge is passed to a thread, then the angle relative to the horizontal axis passing through its source vertex is calculated.  This step is fully parallelizable in a direct way by calculating the angle for each edge on a thread.
+    \item \textbf{Sorting:} Directed edges are first sorted by their source vertex and then by their angles. This step is parallelized using the sort function in the Thrust library.
+    \item \textbf{Grouping Edges:} The sorted edges are grouped by their source vertices. This step is parallelized using the reduce\_by\_key function in the Thrust library in CUDA, which identifies the groups around each vertex and calculates their sizes.
+    \item \textbf{Wedge Generation:} Each vertex group is passed to a thread where wedges are constructed by pairing each edge with its successive neighbor in the group, with the last edge paired with the first to complete the cycle. This step is also parallelizable, with each thread independently processing a group of sorted edges, where the number of iterations per thread corresponds to the number of edges in a group, which is typically much less than \(m\), the total number of edges in the graph.
+\end{itemize}
+
+\subsubsection{Phase 2: Build Regions from Wedges}
+The region grouping phase assembles wedges into closed polygonal regions, identifying all face boundaries of the plane graph. Unlike the first phase, this phase in the original algorithm requires sequential traversal and dynamic data-dependent operations, which are inherently less amenable to parallelization, but still, this phase is accelerated as illustrated in the following steps of the algorithm.
+
+\begin{enumerate}
+    \item \textbf{Wedge Sorting:} The resulting wedges from phase 1 are stored by their vertex pairs for efficient lookup. The sort step is done using the Thrust library in CUDA.
+    \item \textbf{Wedge Initialization:} All the wedges are marked as unvisited in preparation for region extraction, each wedge in a thread. This step is fully parallelizable.
+    \item \textbf{Search for the contiguous wedges}: In this step, we pass each wedge to a thread and calculate the contiguous wedge for each wedge using binary search, and save this data. As a result, we can, later, find the contiguous wedge for any wedge in constant time. This step is fully parallelizable as each wedge searches for its contiguous wedge in a thread, and the binary search operation has time complexity \(O(\log m)\).
+    \item \textbf{Calculate Leaders}: To uniquely identify the regions of the plane graph, we map all wedges belonging to the same region to a single representative identifier. We employ a parallel pointer jumping technique (also known as path doubling) to achieve this convergence efficiently. Let $W$ be the set of $2m$ wedges. Each wedge $w_i \in W$ maintains a successor pointer $S[i]$ and a label $L[i]$. Initially, $S[i]$ is set to the index of the contiguous wedge of $w_i$, and $L[i]$ is initialized to the index $i$. The objective is to reach a steady state where all wedges belonging to the same region $R \subseteq W$ share a uniform label, specifically the minimum index within that region:
+    $$\forall i \in R, \quad L[i] = \min_{j \in R} \{j\}$$
+    In a sequential environment, identifying the minimum label in a cycle of length $c$ requires $O(c)$ operations. To leverage GPU parallelism, we utilize a geometric progression managed by a host-side loop. In each iteration $k$, a kernel is launched where every wedge is processed by a thread to concurrently update its label and successor by referencing those of its current target:
+    $$S_{k+1}[i] = S_k[S_k[i]]$$
+    $$L_{k+1}[i] = \min(L_k[i], L_k[S_k[i]])$$
+    This doubling effect ensures that by iteration $k$, each wedge has traversed a path of length $2^k$. Consequently, any region of size $c$ is fully traversed in $\lceil \log_2 c \rceil$ iterations. Simultaneously, we perform a reduction-style update on the labels; for each wedge $w_i$, we compare its current label with the label of its successor $S[i]$ and retain the minimum. The loop terminates when no further label updates occur across the wedges. Figure~\ref{fig:pointer_jumping} illustrates the progression of leader values for a region of size 8, with wedge indices ranging from 0 to 7. Initially, each wedge $w_i$ is defined by two properties: $L_0[i] = i$ and $S_0[i] = (i + 1) \pmod{8}$. After iteration 1, $L_1[7]$ is the only updated label, as $w_7$ is the only wedge whose successor has a smaller index. The successors are then updated to $S_1[i] = S_0[S_0[i]] = (i + 2) \pmod{8}$. By iteration 2, both $w_5$ and $w_6$ update their labels, and the successors for all wedges become $S_2[i] = (i + 4) \pmod{8}$. Following the final iteration, all wedges $w_0$ through $w_7$ converge to the label 0.
+
+    % \item \textbf{Construct Regions:} Following convergence, a final kernel is launched to linearize the wedges within each region. In this step, parallelism is exploited at the region level rather than the wedge level; each thread is assigned to a unique region leader and performs a sequential "walk" through the linked wedges. This process begins with the leader and follows the original contiguous pointers until the entire cycle is visited. While this step is sequential within each region, a key advantage of this design is the significant reduction in the required thread count. By scaling the number of threads to the number of regions ($|R|$) rather than the number of wedges ($2m$), the implementation minimizes the overhead associated with thread management and maximizes the availability of hardware resources per active thread. This approach prevents resource over-subscription on the GPU, though it remains sensitive to the distribution of region sizes; the overall execution time is governed by the longest cycle, which becomes the primary computational bottleneck. The pointer jumping technique can also be used here in this step, but in spite of having a logarithmic run time complexity instead of the linear run time complexity of the current implementation, the fact that the pointer jumping needs to run on a $2m$ number of threads simultaneously makes it slower in practice. 
+
+    \item \textbf{Construct Regions:} Following the convergence of region leaders, a kernel is launched to linearize the constituent wedges of each independent region. In this phase, parallelism is exploited at the region level rather than the wedge level; each thread is assigned to a unique region leader and executes a sequential traversal along the original contiguous pointers, starting from the leader, until the boundary cycle is fully reconstituted. 
+
+    While the traversal within each region is sequential, this design minimizes resource utilization by scaling the active thread count to the number of discrete regions ($|R|$) rather than the total number of wedges ($2m$). This reduction in thread density mitigates thread management overhead, prevents GPU resource over-subscription, and maximizes the execution context resources available per active thread.
+    
+    Although using pointer jumping would yield a logarithmic time complexity of $O(\log c)$ for a cycle of length $c$, it requires maintaining a thread allocation scaled to all $2m$ wedges. Consequently, the linear traversal over $|R|$ threads proves more efficient in practice due to reduced kernel launch overhead, even though its execution time remains bounded by the maximum cycle length, $O(\max c)$.
+    
+    \item \textbf{Copying Regions:} Copy the regions data back to the CPU.
+\end{enumerate}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+    every node/.style={font=\small\sffamily},
+    box/.style={draw, thick, minimum size=0.7cm, anchor=center},
+    new_leader/.style={fill=green!40, draw=green!70!black, ultra thick},
+    old_leader/.style={fill=green!15},
+    jump/.style={->, >=Stealth, semithick, green!80!black, dashed},
+    no_jump/.style={->, >=Stealth, semithick, red!80!black, dashed},
+    header/.style={font=\small, anchor=east}
+]
+
+    \def\colw{0.8}   
+
+    % --- t=0: Y = 0 ---
+    \node[header] at (-0.5, 0) {Initial Leaders};
+    \foreach \i in {0,...,7} {
+        % \ifnum\i=0 \def\mystyle{old_leader} \else \def\mystyle{} \fi
+        \node[box] (R0-\i) at (\i*\colw, 0) {\i};
+    }
+
+    % --- t=1: Y = -2.0 (Small gap, few arrows) ---
+    \def\yA{-1.0}
+    \node[header] at (-0.5, \yA) {Iteration 1};
+    \foreach \i/\val in {0/0, 1/1, 2/2, 3/3, 4/4, 5/5, 6/6, 7/0} {
+        \ifnum\i=7 \def\mystyle{new_leader} \else \ifnum\i=0 \def\mystyle{old_leader} \else \def\mystyle{} \fi \fi
+        \node[box, \mystyle] (R1-\i) at (\i*\colw, \yA) {\val};
+    }
+    \draw[jump] (R1-7.south) .. controls ++(0,-0.6) and ++(0,-0.6) .. (R1-0.south);
+
+    % --- t=2: Y = -4.5 (Medium gap for more complex jumps) ---
+    \def\yB{-3}
+    \node[header] at (-0.5, \yB) {Iteration 2};
+    \foreach \i/\val in {0/0, 1/1, 2/2, 3/3, 4/4, 5/0, 6/0, 7/0} {
+        \ifnum\i=5 \def\mystyle{new_leader} \else \ifnum\i=6 \def\mystyle{new_leader} \else
+        \ifnum\val=0 \def\mystyle{old_leader} \else \def\mystyle{} \fi\fi\fi
+        \node[box, \mystyle] (R2-\i) at (\i*\colw, \yB) {\val};
+    }
+    \draw[jump] (R2-6.south) .. controls ++(0,-0.8) and ++(0,-0.8) .. (R2-0.south);
+    \draw[jump] (R2-5.north) .. controls ++(0,0.8) and ++(0,0.8) .. (R2-7.north);
+
+    % --- t=3: Y = -8.0 (Large gap for many overlapping arrows) ---
+    \def\yC{-5.5}
+    \node[header] at (-0.5, \yC) {Iteration 3};
+    \foreach \i in {0,...,7} {
+        \ifnum\i>0 \ifnum\i<5 \def\mystyle{new_leader} \else \def\mystyle{old_leader} \fi \else \def\mystyle{old_leader} \fi
+        \node[box, \mystyle] (R3-\i) at (\i*\colw, \yC) {0};
+    }
+    % Stacked arrows with different heights to avoid collisions
+    \draw[jump] (R3-1.north) .. controls ++(0,0.6) and ++(0,0.6) .. (R3-5.north);
+    \draw[jump] (R3-2.north) .. controls ++(0,1.0) and ++(0,1.0) .. (R3-6.north);
+    \draw[jump] (R3-3.north) .. controls ++(0,1.4) and ++(0,1.4) .. (R3-7.north);
+    \draw[jump] (R3-4.south) .. controls ++(0,-0.8) and ++(0,-0.8) .. (R3-0.south);
+
+\end{tikzpicture}
+\caption{Convergence of the Parallel Pointer Jumping algorithm on an 8-element cycle. The diagram illustrates label propagation ($L$) where the minimum identifier (0) is distributed across the array. Highlighted cells indicate nodes that adopted the leader's index during the current iteration.}
+\label{fig:pointer_jumping}
+\end{figure}
+
+% \begin{figure}[t]
+%     \centering
+%     \begin{tikzpicture}[x=1.05cm, y=-1.1cm, font=\scriptsize]
+        
+%         % Vertical grid lines with your custom spacing: 0, 1.3, 2.6, 3.9
+%         \foreach \t [count=\i from 0] in {0, 1.2, 2.4, 3.6} {
+%             \draw[gray!20, dashed] (\t, -0.5) -- (\t, 3.3);
+%             \node[above, gray] at (\t, -0.5) {Step \i}; 
+%         }
+
+%         % Horizontal Timeline Axes
+%         \foreach \y in {0.5, 1.5, 2.5} {
+%             \draw[->, >=Stealth, thick] (-1, \y) -- (4.5, \y);
+%         }
+
+%         % Labels
+%         \node[left] at (-1, 0.5) {Thread $t_1$};
+%         \node[left] at (-1, 1.5) {Thread $t_3$};
+%         \node[left] at (-1, 2.5) {Thread $t_6$};
+
+%         % Styles for smaller, center-aligned boxes
+%         \tikzset{
+%             box/.style={draw, fill=white, minimum width=0.9cm, inner sep=2pt, align=center},
+%             win/.style={box, fill=blue!5},
+%             abort/.style={box, fill=red!5, text=red!80!black},
+%             success/.style={box, thick, fill=green!5}
+%         }
+
+%         % --- Thread t1 ---
+%         \node[win] at (0, 0.5) {Own $w_1$};
+%         \node[win] at (1.2, 0.5) {Acq $w_3$};
+%         \node[win] at (2.4, 0.5) {Acq $w_6$};
+%         \node[success] at (3.6, 0.5) {Output};
+
+%         % --- Thread t3 ---
+%         \node[box] at (0, 1.5) {Own $w_3$};
+%         \node[box] at (1.2, 1.5) {Acq $w_6$};
+%         \node[abort] at (2.4, 1.5) {Abort\\($3 > 1$)};
+
+%         % --- Thread t6 ---
+%         \node[box] at (0, 2.5) {Own $w_6$};
+%         \node[abort] at (1.2, 2.5) {Abort\\($6 > 1$)};
+
+%     \end{tikzpicture}
+%     \caption{Timeline for the execution of the 3 threads \(t_1, t_3, t_6\) that try to aquire the 3 wedges \(w_1, w_3, w_6\)}
+%     \label{fig:ownership_marking}
+% \end{figure}
+
+In the second phase, the maximum number of iterations executed by any GPU thread during the sequential steps corresponds to the maximum number of wedges in a region of the graph. While this upper bound is \(O(m)\), it is typically much smaller in practice.
+
+
+\subsection{The HE-based Algorithm}
+
+\subsubsection{Phase 1: Half-Edges Construction}
+All the steps in this phase are fully parallelizable, as the \textbf{Half-Edge Creation} and the \textbf{Angle Calculation} steps are parallelized through launching kernels for each half-edge, and the \textbf{Angular Sorting} step is done using the Thrust library, and the \textbf{Next Edge Linking} step is parallelized through kernels for each half-edge. At the end of this phase, the next edge for each half-edge is calculated to be used in the next phase.
+
+\subsubsection{Phase 2: Region Traversal}
+All the steps in this phase are directly parallelized, starting from marking all half-edges as unvisited, then calculating the leader half-edges using the same pointer jumping approach used in the Wedge-based algorithm, and at the end constructing the regions and sending the data back to the CPU.
+
+In this phase, the maximum number of iterations executed by any GPU thread during the sequential steps corresponds to the maximum number of edges in a region of the graph. While this upper bound is \(O(n)\), it is typically much smaller in practice.
